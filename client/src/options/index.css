@@ -1,0 +1,98 @@
+:root {
+  --teal: #009688;
+  --light-gray: #f9f9f9;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: white;
+}
+
+.home-container {
+  padding: 40px 20px;
+  text-align: center;
+  color: #333;
+}
+
+.brand-name {
+  font-size: 32px;
+  font-weight: bold;
+  color: teal;
+  margin-bottom: 10px;
+}
+
+.brand-name span {
+  color: black;
+}
+
+.welcome-title {
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: teal;
+}
+
+.subtitle {
+  font-size: 20px;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+.role-options {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.role {
+  width: 400px;
+  text-align: center;
+  background-color: rgb(229, 226, 226);
+  padding: 25px 80px;
+  border-radius: 10px;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 0 auto 15px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.patient {
+  background-color: #fff9c4;
+  background-image: url('https://img.icons8.com/color/96/user-male-circle--v1.png');
+}
+
+.doctor {
+  background-color: #b2dfdb;
+  background-image: url('https://img.icons8.com/color/96/doctor-male.png');
+}
+
+.role-title {
+  font-weight: 600;
+  color: black;
+  font-size: 16px;
+}
+
+.role-desc {
+  font-size: 14px;
+  color: #666;
+}
+
+.support-text {
+  font-size: 14px;
+  color: #777;
+}
+
+.support-text a {
+  color: var(--teal);
+  text-decoration: none;
+  font-weight: 600;
+}
