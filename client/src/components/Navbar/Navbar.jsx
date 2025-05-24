@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import SearchBar from '../SearchBar/SearchBar';
 import './Navbar.css';
 
 const NavigationBar = () => {
   const [isSticky, setIsSticky] = useState(false);
-  const [activeLink, setActiveLink] = useState('home');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isDropdownHovered, setIsDropdownHovered] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const location = useLocation();
+  const navbarRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,11 +20,26 @@ const NavigationBar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavClick = (link) => {
-    setActiveLink(link);
-    // Remove the /disease/ prefix and hash from URLs
-    window.history.pushState({}, '', `/${link === 'home' ? '' : link}`);
-  };
+  useEffect(() => {
+    const handleCloseNavbar = () => {
+      setExpanded(false);
+    };
+    document.addEventListener('closeNavbar', handleCloseNavbar);
+    return () => document.removeEventListener('closeNavbar', handleCloseNavbar);
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (navbarRef.current && !navbarRef.current.contains(event.target)) {
+        setExpanded(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const handleDropdownToggle = (isOpen, event) => {
     if (event.source !== 'select') {
@@ -37,16 +55,23 @@ const NavigationBar = () => {
     setIsDropdownHovered(false);
   };
 
+  const handleLinkClick = () => {
+    setExpanded(false);
+  };
+
   return (
     <Navbar 
+      ref={navbarRef}
       expand="lg" 
       className={`main-navbar ${isSticky ? 'navbar-sticky' : ''}`}
       variant="light"
+      expanded={expanded}
+      onToggle={(expanded) => setExpanded(expanded)}
     >
       <Container>
-        <Navbar.Brand href="/" className="brand" onClick={() => handleNavClick('home')}>
+        <Link to="/" className="navbar-brand brand" onClick={handleLinkClick}>
           <span className="brand-text">CareConnect</span>
-        </Navbar.Brand>
+        </Link>
         <div className="navbar-search-container d-none d-lg-block">
           <SearchBar />
         </div>
@@ -56,57 +81,35 @@ const NavigationBar = () => {
             <div className="d-lg-none mb-3 w-100">
               <SearchBar />
             </div>
-            <Nav.Link 
-              href="/" 
-              className={`nav-link-animated ${activeLink === 'home' ? 'active' : ''}`}
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick('home');
-              }}
+            <Link 
+              to="/" 
+              className={`nav-link nav-link-animated ${location.pathname === '/' ? 'active' : ''}`}
+              onClick={handleLinkClick}
             >
               Home
-            </Nav.Link>
-            <Nav.Link 
-              href="/about" 
-              className={`nav-link-animated ${activeLink === 'about' ? 'active' : ''}`}
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick('about');
-              }}
+            </Link>
+            <Link 
+              to="/about" 
+              className={`nav-link nav-link-animated ${location.pathname === '/about' ? 'active' : ''}`}
+              onClick={handleLinkClick}
             >
               About
-            </Nav.Link>
-            <Nav.Link 
-              href="/services" 
-              className={`nav-link-animated ${activeLink === 'services' ? 'active' : ''}`}
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick('services');
-              }}
+            </Link>
+            <Link 
+              to="/services" 
+              className={`nav-link nav-link-animated ${location.pathname === '/services' ? 'active' : ''}`}
+              onClick={handleLinkClick}
             >
               Services
-            </Nav.Link>
-            <Nav.Link 
-              href="/departments" 
-              className={`nav-link-animated ${activeLink === 'departments' ? 'active' : ''}`}
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick('departments');
-              }}
+            </Link>
+            <Link 
+              to="/hospitals" 
+              className={`nav-link nav-link-animated ${location.pathname === '/hospitals' ? 'active' : ''}`}
+              onClick={handleLinkClick}
             >
               Hospitals & Clinics
-            </Nav.Link>
-            {/* <Nav.Link 
-              href="/doctors" 
-              className={`nav-link-animated ${activeLink === 'doctors' ? 'active' : ''}`}
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick('doctors');
-              }}
-            >
-              Doctors
-            </Nav.Link> */}
-            <div 
+            </Link>
+            {/* <div 
               className="nav-dropdown"
               onMouseEnter={handleDropdownMouseEnter}
               onMouseLeave={handleDropdownMouseLeave}
@@ -114,87 +117,56 @@ const NavigationBar = () => {
               <NavDropdown 
                 title="More" 
                 id="basic-nav-dropdown"
-                className={`nav-link-animated ${activeLink === 'more' ? 'active' : ''}`}
+                className={`nav-link-animated`}
                 show={isDropdownOpen || isDropdownHovered}
                 onToggle={handleDropdownToggle}
               >
-                <NavDropdown.Item 
-                  href="/medical-services" 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick('medical-services');
-                  }}
+                <Link 
+                  to="/medical-services" 
+                  className="dropdown-item"
                 >
                   Medical Services
-                </NavDropdown.Item>
-                <NavDropdown.Item 
-                  href="/health-packages" 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick('health-packages');
-                  }}
+                </Link>
+                <Link 
+                  to="/health-packages" 
+                  className="dropdown-item"
                 >
                   Health Packages
-                </NavDropdown.Item>
-                <NavDropdown.Item 
-                  href="/find-doctor" 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick('find-doctor');
-                  }}
+                </Link>
+                <Link 
+                  to="/find-doctor" 
+                  className="dropdown-item"
                 >
                   Find a Doctor
-                </NavDropdown.Item>
-                <NavDropdown.Item 
-                  href="/patient-resources" 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick('patient-resources');
-                  }}
+                </Link>
+                <Link 
+                  to="/patient-resources" 
+                  className="dropdown-item"
                 >
                   Patient Resources
-                </NavDropdown.Item>
-                <NavDropdown.Item 
-                  href="/insurance" 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick('insurance');
-                  }}
+                </Link>
+                <Link 
+                  to="/insurance" 
+                  className="dropdown-item"
                 >
                   Insurance & Billing
-                </NavDropdown.Item>
+                </Link>
               </NavDropdown>
-            </div>
-            {/* <Nav.Link 
-              href="/contact" 
-              className={`nav-link-animated ${activeLink === 'contact' ? 'active' : ''}`}
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick('contact');
-              }}
-            >
-              Contact
-            </Nav.Link> */}
-            <Nav.Link 
-              href="/login" 
-              className={`login-btn ${activeLink === 'login' ? 'active' : ''}`}
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick('login');
-              }}
+            </div> */}
+            <Link 
+              to="/login" 
+              className={`nav-link login-btn ${location.pathname === '/login' ? 'active' : ''}`}
+              onClick={handleLinkClick}
             >
               Login
-            </Nav.Link>
-            <Nav.Link 
-              href="/appointment" 
-              className={`appointment-btn ${activeLink === 'appointment' ? 'active' : ''}`}
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick('appointment');
-              }}
+            </Link>
+            <Link 
+              to="/appointment" 
+              className={`nav-link appointment-btn ${location.pathname === '/appointment' ? 'active' : ''}`}
+              onClick={handleLinkClick}
             >
               Make an Appointment
-            </Nav.Link>
+            </Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

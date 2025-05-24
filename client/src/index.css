@@ -57,6 +57,22 @@ button {
 button:hover {
   border-color: #646cff;
 }
+
+.icon-wrapper {
+  margin-bottom: 15px;
+  font-size: 28px;
+  color: #4154f1;
+  background: rgba(65, 84, 241, 0.1);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px;
+  transition: all 0.3s ease;
+}
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;

@@ -218,15 +218,48 @@
 }
 
 @media (max-width: 991px) {
+  .main-navbar {
+    padding: 8px 0;
+  }
+
+  .main-navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    min-height: 50px;
+  }
+
+  .brand {
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+  }
+
   .navbar-search-container {
-    margin: 1rem 0;
+    flex: 1;
+    max-width: 400px;
+    margin: 0 1rem;
+    order: 2;
+  }
+
+  .navbar-toggler {
+    order: 3;
+    padding: 0;
+    border: none;
+    display: flex;
+    align-items: center;
+  }
+
+  .navbar-collapse {
+    order: 4;
     width: 100%;
-    max-width: 100%;
   }
 
   .navbar-nav {
     padding: 1rem 0;
     gap: 0;
+    width: 100%;
   }
 
   .nav-link-animated, #basic-nav-dropdown {
@@ -276,11 +309,6 @@
     background: rgba(65, 84, 241, 0.1);
     color: #4154f1;
     padding-left: 30px;
-  }
-
-  .navbar-toggler {
-    padding: 0;
-    border: none;
   }
 
   .navbar-toggler:focus {

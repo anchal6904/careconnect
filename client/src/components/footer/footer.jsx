@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { 
   FaTwitter, FaFacebook, FaInstagram, FaLinkedin, FaArrowUp, 
   FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaAmbulance, FaClinicMedical,
   FaUserMd, FaCalendarCheck, FaHeartbeat, FaHospital, FaClock, FaPhoneVolume
 } from 'react-icons/fa';
+import "bootstrap/dist/css/bootstrap.min.css";
 import './Footer.css';
 
 const Footer = () => {
@@ -72,29 +74,29 @@ const Footer = () => {
             <div className="contact-info">
               <p><FaPhoneAlt className="icon" /> Emergency: <span className="emergency-number">911</span></p>
               <p><FaPhoneAlt className="icon" /> Helpline: +1 (555) 123-4567</p>
-              <p><FaEnvelope className="icon" /> care@careconnect.com</p>
+              <p><FaEnvelope className="icon" /> care@CareConnect.com</p>
             </div>
           </Col>
 
           <Col lg={3} md={6} className="footer-section" data-aos="fade-up" data-aos-delay="200">
             <h4>Quick Links</h4>
             <ul className="quick-links">
-              <li><FaHeartbeat className="icon" /><a href="/about">About Us</a></li>
-              <li><FaUserMd className="icon" /><a href="/doctors">Our Doctors</a></li>
-              <li><FaHospital className="icon" /><a href="/departments">Departments</a></li>
-              <li><FaCalendarCheck className="icon" /><a href="/appointment">Book Appointment</a></li>
-              <li><FaClinicMedical className="icon" /><a href="/services">Our Services</a></li>
+              <li><FaHeartbeat className="icon" /><Link to="/about">About Us</Link></li>
+              <li><FaUserMd className="icon" /><Link to="/find-doctor">Our Doctors</Link></li>
+              <li><FaHospital className="icon" /><Link to="/departments">Departments</Link></li>
+              <li><FaCalendarCheck className="icon" /><Link to="/appointment">Book Appointment</Link></li>
+              <li><FaClinicMedical className="icon" /><Link to="/services">Our Services</Link></li>
             </ul>
           </Col>
 
           <Col lg={3} md={6} className="footer-section" data-aos="fade-up" data-aos-delay="300">
             <h4>Our Services</h4>
             <ul className="services-links">
-              <li><a href="/services/emergency">Emergency Care</a></li>
-              <li><a href="/services/cardiology">Cardiology</a></li>
-              <li><a href="/services/neurology">Neurology</a></li>
-              <li><a href="/services/pediatrics">Pediatrics</a></li>
-              <li><a href="/services/diagnostics">Diagnostics</a></li>
+              <li><Link to="/medical-services">Medical Services</Link></li>
+              <li><Link to="/health-packages">Health Packages</Link></li>
+              <li><Link to="/patient-resources">Patient Resources</Link></li>
+              <li><Link to="/insurance">Insurance & Billing</Link></li>
+              <li><Link to="/appointment">Book Appointment</Link></li>
             </ul>
           </Col>
 
@@ -131,7 +133,7 @@ const Footer = () => {
         <Row className="copyright-row">
           <Col md={12}>
             <div className="copyright">
-              © {new Date().getFullYear()} <strong>Medilab</strong>. All Rights Reserved
+              © {new Date().getFullYear()} <strong>CareConnect</strong>. All Rights Reserved
             </div>
           </Col>
         </Row>

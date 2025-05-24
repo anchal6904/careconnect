@@ -1,0 +1,914 @@
+.appointment-section {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 100%);
+  padding: 40px 0;
+  display: flex;
+  align-items: center;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.appointment-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 30px;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 60px;
+  animation: slideDown 0.5s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.section-title h2 {
+  font-size: 48px;
+  color: #2d4185;
+  margin-bottom: 20px;
+  font-weight: 700;
+  position: relative;
+  display: inline-block;
+}
+
+.section-title h2::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, #4154f1, #6776f4);
+  border-radius: 4px;
+}
+
+.section-title p {
+  color: #6c757d;
+  font-size: 20px;
+  max-width: 600px;
+  margin: 20px auto 0;
+  line-height: 1.6;
+}
+
+.appointment-form {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 50px;
+  border-radius: 30px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(10px);
+  animation: fadeIn 0.5s ease-out 0.2s both;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.form-section {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(65, 84, 241, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.form-section:hover {
+  transform: translateY(-5px);
+}
+
+.form-section h3 {
+  color: #2d4185;
+  font-size: 20px;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid rgba(65, 84, 241, 0.1);
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.input-icon {
+  position: relative;
+}
+
+.input-icon .icon {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #4154f1;
+  font-size: 20px;
+  transition: all 0.4s ease;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 16px 20px 16px 55px;
+  border: 2px solid #e1e1e1;
+  border-radius: 15px;
+  font-size: 16px;
+  transition: all 0.4s ease;
+  background-color: white;
+  color: #333;
+  height: 55px;
+}
+
+.form-group textarea {
+  width: 100%;
+  padding: 20px 20px 20px 55px;
+  border: 2px solid #e1e1e1;
+  border-radius: 15px;
+  font-size: 16px;
+  transition: all 0.4s ease;
+  resize: vertical;
+  min-height: 150px;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #4154f1;
+  box-shadow: 0 0 0 5px rgba(65, 84, 241, 0.1);
+  outline: none;
+  transform: translateY(-2px);
+}
+
+.form-group input:focus + .icon,
+.form-group select:focus + .icon {
+  color: #2d4185;
+  transform: translateY(-50%) scale(1.2);
+}
+
+/* Date input styling */
+.date-input-container {
+  position: relative;
+}
+
+.date-input-container .input-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.date-input {
+  width: 100%;
+  padding: 16px 50px 16px 55px !important;
+  border: 2px solid #e1e1e1;
+  border-radius: 15px;
+  font-size: 16px;
+  transition: all 0.4s ease;
+  background-color: white;
+  color: #333;
+  height: 55px;
+  position: relative;
+  z-index: 2;
+}
+
+.date-picker {
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50px;
+  height: 100%;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.calendar-trigger {
+  position: absolute;
+  right: 15px;
+  color: #4154f1;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 1;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.date-input:hover + .date-picker + .calendar-trigger,
+.date-input:focus + .date-picker + .calendar-trigger {
+  transform: scale(1.1);
+  color: #2d4185;
+}
+
+.date-label {
+  position: absolute;
+  left: 55px;
+  top: -10px;
+  transform: translateY(0);
+  color: #666;
+  font-size: 14px;
+  background: white;
+  padding: 0 8px;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  z-index: 4;
+}
+
+.input-hint {
+  display: block;
+  margin-top: 8px;
+  color: #ff4d4d;
+  font-size: 13px;
+  margin-left: 15px;
+  transition: all 0.3s ease;
+}
+
+/* Date input states */
+.date-input:focus {
+  border-color: #4154f1;
+  box-shadow: 0 0 0 4px rgba(65, 84, 241, 0.1);
+  outline: none;
+}
+
+.date-input:hover {
+  border-color: #6776f4;
+}
+
+.date-input::placeholder {
+  color: #999;
+  transition: color 0.3s ease;
+}
+
+.date-input:focus::placeholder {
+  color: #bbb;
+}
+
+/* Error state */
+.date-input-container.error .date-input {
+  border-color: #ff4d4d;
+  background-color: #fff8f8;
+}
+
+.date-input-container.error .calendar-trigger {
+  color: #ff4d4d;
+}
+
+/* Success state */
+.date-input-container.success .date-input {
+  border-color: #28a745;
+  background-color: #f8fff9;
+}
+
+.date-input-container.success .calendar-trigger {
+  color: #28a745;
+}
+
+/* Icon styling */
+.date-input-container .icon {
+  position: absolute;
+  left: 20px;
+  color: #4154f1;
+  font-size: 20px;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .date-input {
+    font-size: 15px;
+    padding: 14px 45px 14px 50px !important;
+    height: 50px;
+  }
+
+  .calendar-trigger {
+    font-size: 18px;
+  }
+
+  .date-label {
+    font-size: 13px;
+  }
+}
+
+/* Gender group styling */
+.gender-group {
+  padding: 20px;
+  border: 2px solid #e1e1e1;
+  border-radius: 15px;
+  background: white;
+}
+
+.gender-group label {
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 15px;
+  display: block;
+  font-size: 16px;
+}
+
+.radio-group {
+  display: flex;
+  gap: 30px;
+  margin-top: 15px;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-weight: normal;
+  margin: 0;
+  transition: all 0.3s ease;
+  padding: 10px 15px;
+  border-radius: 10px;
+  background: rgba(65, 84, 241, 0.05);
+}
+
+.radio-group label:hover {
+  background: rgba(65, 84, 241, 0.1);
+  color: #4154f1;
+}
+
+.radio-group input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  accent-color: #4154f1;
+  cursor: pointer;
+}
+
+/* Message group styling */
+.message-group {
+  grid-column: 1 / -1;
+  margin-top: 20px;
+}
+
+.message-group textarea {
+  background: rgba(255, 255, 255, 0.688);
+  color: #000;
+}
+
+/* Submit button styling */
+.form-submit {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.form-submit button {
+  background: linear-gradient(135deg, #4154f1 0%, #6776f4 100%);
+  color: white;
+  border: none;
+  padding: 18px 50px;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.5px;
+  min-width: 200px;
+}
+
+.form-submit button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(65, 84, 241, 0.4);
+}
+
+.button-effect {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease-out, height 0.6s ease-out;
+}
+
+.form-submit button:hover .button-effect {
+  width: 300%;
+  height: 300%;
+}
+
+/* Input hint styling */
+.input-hint {
+  display: block;
+  margin-top: 8px;
+  color: #666;
+  font-size: 14px;
+  margin-left: 15px;
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .appointment-section {
+    padding: 40px 0;
+  }
+
+  .section-title h2 {
+    font-size: 36px;
+  }
+
+  .section-title p {
+    font-size: 18px;
+  }
+
+  .appointment-form {
+    padding: 30px 20px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .form-section {
+    padding: 20px;
+  }
+
+  .radio-group {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .radio-group label {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Loading and Success/Error States */
+.form-submit button:disabled {
+  background: linear-gradient(135deg, #ccc 0%, #ddd 100%);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.form-group.error input,
+.form-group.error select,
+.form-group.error textarea {
+  border-color: #ff4d4d;
+  background-color: #fff8f8;
+}
+
+.form-group.error .icon {
+  color: #ff4d4d;
+  animation: shake 0.5s ease-in-out;
+}
+
+.form-group.success input,
+.form-group.success select,
+.form-group.success textarea {
+  border-color: #28a745;
+  background-color: #f8fff9;
+}
+
+.form-group.success .icon {
+  color: #28a745;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* Select styling */
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%234154f1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 16px;
+  padding-right: 45px !important;
+}
+
+select:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
+/* Floating label animation */
+.form-group input:not(:placeholder-shown) + .icon,
+.form-group select:not(:placeholder-shown) + .icon {
+  transform: translateY(-50%) scale(1.1);
+  color: #4154f1;
+}
+
+/* Hover effects */
+.form-group input:hover,
+.form-group select:hover,
+.form-group textarea:hover {
+  border-color: #6776f4;
+}
+
+/* Date input specific styles */
+.date-field::-webkit-calendar-picker-indicator {
+  opacity: 1;
+  cursor: pointer;
+  color: #666;
+  position: absolute;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+}
+
+.date-field {
+  position: relative;
+  padding-right: 40px !important; /* Make space for the calendar icon */
+}
+
+/* For Firefox */
+.date-field::-moz-calendar-picker-indicator {
+  opacity: 1;
+  cursor: pointer;
+}
+
+/* Ensure the icon container doesn't overlap with the calendar icon */
+.input-icon .icon {
+  z-index: 1;
+}
+
+.date-field:hover::-webkit-calendar-picker-indicator {
+  opacity: 0.8;
+}
+
+/* Custom Notification Styles */
+.custom-notification {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  min-width: 300px;
+  max-width: 400px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 8px 30px rgba(65, 84, 241, 0.15);
+  overflow: hidden;
+  z-index: 1000;
+  animation: slideInLeft 0.3s ease-out;
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.custom-notification.success {
+  border-left: 4px solid #28a745;
+}
+
+.custom-notification.error {
+  border-left: 4px solid #dc3545;
+}
+
+.notification-content {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  gap: 15px;
+}
+
+.notification-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.custom-notification.success .notification-icon {
+  color: #28a745;
+}
+
+.custom-notification.error .notification-icon {
+  color: #dc3545;
+}
+
+.notification-content span {
+  color: #2d4185;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.notification-progress {
+  height: 3px;
+  background: rgba(65, 84, 241, 0.1);
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.notification-progress::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: #4154f1;
+  animation: progress 5s linear forwards;
+}
+
+.custom-notification.success .notification-progress::after {
+  background: #28a745;
+}
+
+.custom-notification.error .notification-progress::after {
+  background: #dc3545;
+}
+
+@keyframes progress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+/* Remove all Toastify styles */
+.Toastify__toast-container,
+.Toastify__toast,
+.Toastify__toast-body,
+.Toastify__toast-icon,
+.Toastify__progress-bar,
+.Toastify__close-button,
+.Toastify__slide-enter--top-right,
+.Toastify__slide-exit--top-right {
+  display: none !important;
+}
+
+/* Loading spinner */
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s linear infinite;
+  margin-right: 10px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Mobile Responsiveness for Notification */
+@media (max-width: 480px) {
+  .custom-notification {
+    left: 10px;
+    right: 10px;
+    min-width: auto;
+    max-width: none;
+    width: calc(100% - 20px);
+  }
+}
+
+/* Enhanced Responsive Styles */
+@media (max-width: 1200px) {
+  .appointment-container {
+    padding: 0 20px;
+  }
+
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+
+  .form-section {
+    padding: 25px;
+  }
+
+  .section-title h2 {
+    font-size: 42px;
+  }
+}
+
+@media (max-width: 992px) {
+  .appointment-section {
+    padding: 60px 0;
+  }
+
+  .section-title {
+    margin-bottom: 40px;
+  }
+
+  .section-title h2 {
+    font-size: 36px;
+  }
+
+  .section-title p {
+    font-size: 18px;
+    padding: 0 20px;
+  }
+
+  .appointment-form {
+    padding: 35px 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .appointment-section {
+    padding: 40px 0;
+  }
+
+  .section-title h2 {
+    font-size: 32px;
+  }
+
+  .section-title p {
+    font-size: 16px;
+  }
+
+  .appointment-form {
+    padding: 25px 20px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .form-section {
+    padding: 20px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 14px 20px 14px 50px;
+    font-size: 15px;
+    height: 50px;
+  }
+
+  .form-group textarea {
+    min-height: 120px;
+  }
+
+  .radio-group {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .radio-group label {
+    width: 100%;
+    justify-content: center;
+    padding: 8px 12px;
+  }
+
+  .form-submit button {
+    padding: 15px 40px;
+    font-size: 16px;
+    min-width: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .appointment-section {
+    padding: 30px 0;
+  }
+
+  .section-title {
+    margin-bottom: 30px;
+  }
+
+  .section-title h2 {
+    font-size: 28px;
+  }
+
+  .section-title p {
+    font-size: 15px;
+    padding: 0 10px;
+  }
+
+  .appointment-form {
+    padding: 20px 15px;
+    border-radius: 20px;
+  }
+
+  .form-section {
+    padding: 15px;
+  }
+
+  .form-section h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 12px 15px 12px 45px;
+    font-size: 14px;
+    height: 45px;
+    border-radius: 12px;
+  }
+
+  .form-group textarea {
+    min-height: 100px;
+  }
+
+  .input-icon .icon {
+    font-size: 18px;
+    left: 15px;
+  }
+
+  .radio-group label {
+    font-size: 14px;
+  }
+
+  .form-submit button {
+    padding: 12px 30px;
+    font-size: 15px;
+    min-width: 160px;
+    border-radius: 25px;
+  }
+
+  .custom-notification {
+    left: 10px;
+    right: 10px;
+    min-width: auto;
+    max-width: none;
+    width: calc(100% - 20px);
+  }
+
+  .notification-content {
+    padding: 15px;
+  }
+
+  .notification-icon {
+    font-size: 20px;
+  }
+
+  .notification-content span {
+    font-size: 14px;
+  }
+}
+
+/* Add smooth transitions for better mobile experience */
+.form-group input,
+.form-group select,
+.form-group textarea,
+.form-section,
+.form-submit button {
+  transition: all 0.3s ease;
+}
+
+/* Improve touch targets for mobile */
+@media (max-width: 768px) {
+  .form-group input,
+  .form-group select,
+  .form-group textarea,
+  .radio-group label,
+  .form-submit button {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    transform: none;
+  }
+}

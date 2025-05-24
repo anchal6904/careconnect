@@ -101,12 +101,12 @@
 
 .accordion-button:not(.collapsed) .faq-icon {
   transform: rotate(360deg);
-  color: #1977cc;
+  color: #ffffff;
 }
 
 .accordion-body {
   padding: 20px 25px;
-  color: #444;
+  color: #444444;
   line-height: 1.7;
   font-size: 15px;
   background: #f8f9fa;
@@ -140,7 +140,7 @@
 
 /* Enhanced hover effects */
 .faq-item:hover .accordion-button:not(.collapsed) {
-  color: #1977cc;
+  color: #ffffff;
 }
 
 .faq-item:hover .faq-icon {

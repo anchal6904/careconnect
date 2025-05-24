@@ -1,0 +1,177 @@
+.disease-page {
+  padding: 60px 0;
+  background: #f8f9fa;
+}
+
+.disease-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+}
+
+.disease-header h1 {
+  color: #012970;
+  margin-bottom: 15px;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.disease-description {
+  color: #444444;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.disease-image {
+  margin-bottom: 30px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.disease-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+}
+
+.card-header {
+  background: #4154f1;
+  color: white;
+  border: none;
+  padding: 15px 20px;
+  font-weight: 600;
+}
+
+.card-header h2, .card-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.card-body {
+  padding: 25px;
+}
+
+.card-body h3 {
+  color: #012970;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+
+.card-body h3:first-child {
+  margin-top: 0;
+}
+
+.card-body ul {
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+
+.card-body li {
+  margin-bottom: 10px;
+  color: #444444;
+  line-height: 1.6;
+}
+
+.disease-sidebar .card {
+  margin-bottom: 30px;
+}
+
+.synonyms-list, .related-diseases-list {
+  list-style: none;
+  padding: 0;
+}
+
+.synonyms-list li, .related-diseases-list li {
+  background: #f8f9fa;
+  padding: 8px 15px;
+  margin-bottom: 8px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  color: #444444;
+}
+
+.video-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.video-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+  background: #f8f9fa;
+  border-radius: 5px;
+  color: #4154f1;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.video-link:hover {
+  background: #4154f1;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #4154f1;
+  color: white;
+}
+
+.accordion-button:focus {
+  box-shadow: none;
+  border-color: rgba(0, 0, 0, 0.125);
+}
+
+.disease-not-found {
+  padding: 60px 0;
+  text-align: center;
+}
+
+.disease-not-found .alert {
+  max-width: 500px;
+  margin: 0 auto 20px;
+}
+
+.disease-not-found .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #4154f1;
+  border: none;
+  padding: 10px 25px;
+  transition: all 0.3s ease;
+}
+
+.disease-not-found .btn:hover {
+  background: #5969f3;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 991px) {
+  .disease-header h1 {
+    font-size: 2rem;
+  }
+
+  .disease-description {
+    font-size: 1rem;
+  }
+
+  .card-header h2, .card-header h3 {
+    font-size: 1.1rem;
+  }
+} 
