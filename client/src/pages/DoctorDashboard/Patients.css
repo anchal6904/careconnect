@@ -1,0 +1,197 @@
+.patients-container {
+  padding: 2rem 0;
+}
+
+.patients-container h2 {
+  color: #2c3e50;
+  margin-bottom: 0;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.table {
+  margin-bottom: 0;
+}
+
+.table th {
+  border-top: none;
+  background-color: #f8f9fa;
+  color: #2c3e50;
+  font-weight: 600;
+  padding: 1rem;
+}
+
+.table td {
+  padding: 1rem;
+  vertical-align: middle;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #3498db;
+  border-color: #3498db;
+}
+
+.btn-primary:hover {
+  background-color: #2980b9;
+  border-color: #2980b9;
+}
+
+.btn-outline-primary {
+  color: #3498db;
+  border-color: #3498db;
+}
+
+.btn-outline-primary:hover {
+  background-color: #3498db;
+  border-color: #3498db;
+}
+
+.btn-outline-info {
+  color: #2ecc71;
+  border-color: #2ecc71;
+}
+
+.btn-outline-info:hover {
+  background-color: #2ecc71;
+  border-color: #2ecc71;
+  color: white;
+}
+
+.btn-outline-success {
+  color: #9b59b6;
+  border-color: #9b59b6;
+}
+
+.btn-outline-success:hover {
+  background-color: #9b59b6;
+  border-color: #9b59b6;
+  color: white;
+}
+
+.btn-outline-danger {
+  color: #e74c3c;
+  border-color: #e74c3c;
+}
+
+.btn-outline-danger:hover {
+  background-color: #e74c3c;
+  border-color: #e74c3c;
+  color: white;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+.modal-content {
+  border: none;
+  border-radius: 10px;
+}
+
+.modal-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+  border-radius: 10px 10px 0 0;
+}
+
+.modal-title {
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.modal-footer {
+  border-top: 1px solid #e9ecef;
+  border-radius: 0 0 10px 10px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .patients-container {
+    padding: 1rem;
+  }
+
+  .table-responsive {
+    margin: 0 -1rem;
+  }
+
+  .btn {
+    padding: 0.4rem 0.8rem;
+  }
+
+  .d-flex.gap-2 {
+    gap: 0.5rem !important;
+  }
+}
+
+/* Loading state */
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: #6c757d;
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: #6c757d;
+}
+
+.empty-state i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #dee2e6;
+}
+
+/* Animation for table rows */
+.table tbody tr {
+  transition: background-color 0.3s ease;
+}
+
+.table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Search input styling */
+.input-group {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.input-group-text {
+  background-color: white;
+  border-right: none;
+}
+
+.input-group .form-control {
+  border-left: none;
+}
+
+.input-group .form-control:focus {
+  box-shadow: none;
+}
+
+/* Modal animations */
+.modal.fade .modal-dialog {
+  transform: scale(0.8);
+  transition: transform 0.3s ease-in-out;
+}
+
+.modal.show .modal-dialog {
+  transform: scale(1);
+} 

@@ -1,0 +1,173 @@
+.reports-container {
+  padding: 2rem 0;
+}
+
+.reports-container h2 {
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+}
+
+.reports-container h2 svg {
+  color: #3498db;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.card h5 {
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.card h5 svg {
+  color: #3498db;
+}
+
+.form-label {
+  color: #2c3e50;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.form-label svg {
+  color: #3498db;
+}
+
+.form-control,
+.form-select {
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  padding: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+/* Table styles */
+.table {
+  margin-bottom: 0;
+}
+
+.table th {
+  border-top: none;
+  background-color: #f8f9fa;
+  color: #2c3e50;
+  font-weight: 600;
+  padding: 1rem;
+}
+
+.table td {
+  padding: 1rem;
+  vertical-align: middle;
+}
+
+/* Report type badges */
+.report-type {
+  padding: 0.5em 0.75em;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.report-type.appointments {
+  background-color: #3498db;
+  color: white;
+}
+
+.report-type.patients {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.report-type.revenue {
+  background-color: #f1c40f;
+  color: white;
+}
+
+.report-type.prescriptions {
+  background-color: #9b59b6;
+  color: white;
+}
+
+/* Button styles */
+.btn {
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #3498db;
+  border-color: #3498db;
+}
+
+.btn-primary:hover {
+  background-color: #2980b9;
+  border-color: #2980b9;
+}
+
+.btn-outline-primary {
+  color: #3498db;
+  border-color: #3498db;
+}
+
+.btn-outline-primary:hover {
+  background-color: #3498db;
+  border-color: #3498db;
+  color: white;
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: #6c757d;
+}
+
+/* Animation for table rows */
+.table tbody tr {
+  transition: background-color 0.3s ease;
+}
+
+.table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .reports-container {
+    padding: 1rem;
+  }
+
+  .card-body {
+    padding: 1.25rem;
+  }
+
+  .btn {
+    padding: 0.5rem 1rem;
+  }
+
+  .table th,
+  .table td {
+    padding: 0.75rem;
+  }
+
+  .report-type {
+    padding: 0.4em 0.6em;
+    font-size: 0.8rem;
+  }
+} 

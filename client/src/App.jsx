@@ -12,6 +12,7 @@ import ServicesPage from './pages/ServicesPage/ServicesPage'
 import DepartmentsPage from './pages/DepartmentsPage/DepartmentsPage'
 import MedicalServicesPage from './pages/MedicalServicesPage/MedicalServicesPage'
 import HealthPackagesPage from './pages/HealthPackagesPage/HealthPackagesPage'
+import FindDoctorPage from './pages/FindDoctorPage/FindDoctorPage'
 import PatientResourcesPage from './pages/PatientResourcesPage/PatientResourcesPage'
 import InsurancePage from './pages/InsurancePage/InsurancePage'
 import LoginPage from './pages/LoginPage/LoginPage'
@@ -19,6 +20,7 @@ import AppointmentPage from './pages/AppointmentPage/AppointmentPage'
 import DiseasePage from './pages/DiseasePage/DiseasePage'
 import HospitalsPage from './pages/HospitalsPage/HospitalsPage'
 import HospitalPage from './pages/HospitalPage/HospitalPage'
+import DoctorDashboard from './pages/DoctorDashboard/DoctorDashboard'
 import Footer from './components/Footer/Footer'
 import NavigationBar from './components/Navbar/Navbar'
 import DashboardNavbar from './components/DashboardNavbar/DashboardNavbar'
@@ -91,6 +93,7 @@ function App() {
             <Route path="/departments" element={<DepartmentsPage />} />
             <Route path="/medical-services" element={<MedicalServicesPage />} />
             <Route path="/health-packages" element={<HealthPackagesPage />} />
+            <Route path="/find-doctor" element={<FindDoctorPage />} />
             <Route path="/patient-resources" element={<PatientResourcesPage />} />
             <Route path="/insurance" element={<InsurancePage />} />
             <Route path="/login" element={<LoginPage />} />
@@ -104,7 +107,7 @@ function App() {
               path="/doctor-dashboard/*"
               element={
                 <ProtectedRoute allowedRole="doctor">
-                 
+                  <DoctorDashboard />
                 </ProtectedRoute>
               }
             />
@@ -114,7 +117,6 @@ function App() {
               path="/patient-dashboard/*"
               element={
                 <ProtectedRoute allowedRole="patient">
-                 
                 </ProtectedRoute>
               }
             />
