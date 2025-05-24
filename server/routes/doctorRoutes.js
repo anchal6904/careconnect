@@ -3,6 +3,41 @@ const router = express.Router();
 
 import { supabaseAdmin,supabase } from '../supabaseClient.js';
 
+
+// Get doctor availability
+router.get('/doctor/:id/availability', async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const { data, error } = await supabase
+      .from('doctors')
+      .select('available_days, available_hours')
+      .eq('id', id)
+      .single();
+
+    if (error || !data) {
+      return res.status(404).json({ error: "Doctor not found" });
+    }
+
+    // Convert string to array
+    const available_days = data.available_days ? data.available_days.split(',') : [];
+    const available_hours = data.available_hours ? data.available_hours.split(',') : [];
+
+    if (available_days.length === 0 || available_hours.length === 0) {
+      return res.status(404).json({ error: "Doctor not found or no availability data" });
+    }
+
+    res.json({
+      available_days,
+      available_hours,
+    });
+  } catch (error) {
+    console.error('Error fetching doctor availability:', error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+
 router.post('/signupDoctor', async (req, res) => {
   try {
     const {
@@ -164,6 +199,140 @@ router.post('/loginDoctor', async (req, res) => {
   } catch (error) {
     console.error("Login exception:", error);
     return res.status(500).json({ success: false, message: "Server error" });
+  }
+});
+
+router.post("/logout", async (req, res) => {
+    //common for both patient and doctor
+  try {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      return res.status(400).json({ success: false, message: error.message });
+    }
+
+    return res
+      .status(200)
+      .json({ success: true, message: "Logout successful" });
+  } catch (error) {
+    console.error("Error logging out:", error);
+    return res.status(500).json({ success: false, message: "Server error" });
+  }
+});
+
+import axios from 'axios';
+
+router.put('/updateDoctorProfile/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updateData = {};
+
+    // Extract fields from request body
+    const {
+      consultation_fee,
+      available_days,
+      available_hours,
+      avatar_url,
+      location_link,
+      bio,
+    } = req.body;
+
+    // Only include fields that are provided in the update
+    if (consultation_fee !== undefined) updateData.consultation_fee = consultation_fee;
+    if (available_days !== undefined) updateData.available_days = available_days;
+    if (available_hours !== undefined) updateData.available_hours = available_hours;
+    if (avatar_url !== undefined) updateData.avatar_url = avatar_url;
+    if (bio !== undefined) updateData.bio = bio;
+
+    // If location is being updated, try to geocode it
+    if (location_link !== undefined) {
+      updateData.location_link = location_link;
+      
+      try {
+        const geoResponse = await axios.get(
+          `https://api.opencagedata.com/geocode/v1/json`,
+          {
+            params: {
+              q: location_link,
+              key: "2dd092ec7de04b3eb21d6d4f067befa8", // Use environment variable
+            },
+          }
+        );
+
+        const geoData = geoResponse.data;
+
+        if (geoData.results.length > 0) {
+          updateData.latitude = geoData.results[0].geometry.lat;
+          updateData.longitude = geoData.results[0].geometry.lng;
+        }
+      } catch (geoError) {
+        console.error('Geocoding failed:', geoError.message);
+        // Continue with update even if geocoding fails
+      }
+    }
+
+    // Add updated timestamp
+    updateData.updated_at = new Date();
+
+    // Check if this is a complete profile update
+    const isCompleteProfile = 
+      consultation_fee !== undefined &&
+      available_days !== undefined &&
+      available_hours !== undefined &&
+      avatar_url !== undefined &&
+      location_link !== undefined &&
+      bio !== undefined;
+
+    if (isCompleteProfile) {
+      updateData.onboarding_complete = true;
+      updateData.is_visible = true;
+    }
+
+    // Update the doctor profile
+    const { error } = await supabaseAdmin
+      .from("doctors")
+      .update(updateData)
+      .eq("id", id);
+
+    if (error) {
+      console.error("Error updating doctor profile:", error);
+      return res.status(400).json({
+        success: false,
+        message: error.message || "Failed to update doctor profile",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Doctor profile updated successfully",
+      data: updateData
+    });
+
+  } catch (error) {
+    console.error("Server error:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+  }
+});
+
+
+// Get all doctors
+router.get('/fetchDoctors', async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from('doctors')
+      .select('*');
+
+    if (error) {
+      return res.status(500).json({ success: false, message: 'Error fetching doctors', error });
+    }
+
+    return res.status(200).json({ success: true, data });
+  } catch (error) {
+    console.error('Error:', error);
+    return res.status(500).json({ success: false, message: 'Server error' });
   }
 });
 

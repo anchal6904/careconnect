@@ -3,6 +3,7 @@ import cors from 'cors';
 import { supabaseAdmin } from './supabaseClient.js';
 import patientRouter from './routes/patientRoutes.js';
 import doctorRouter from './routes/doctorRoutes.js';
+import appointmentRouter from './routes/appointmentRouter.js';
 
 
 
@@ -13,60 +14,48 @@ const port = 5000;
 app.use(cors());
 app.use(express.json());
 
-// Test database connection
-// app.get('/test-db', async (req, res) => {
-//     try {
-//         const { data, error } = await supabase
-//             .from('patients')
-//             .select('*')
-//             .limit(5);
+// Debug middleware to log all requests
+app.use((req, res, next) => {
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+    next();
+});
 
-//         if (error) throw error;
+const fetchDoctors = async () => {
+  const { data, error } = await supabaseAdmin
+    .from('doctors') 
+    .select('*');
 
-//         res.status(200).json({
-//             success: true,
-//             data: data
-//         });
-//     } catch (error) {
-//         res.status(500).json({
-//             success: false,
-//             error: error.message
-//         });
-//     }
-// });
+  if (error) {
+    console.error("Error fetching doctors:", error); 
+  } else { 
+    console.log("Doctors data:", data);
+  }
+};
 
-// const fetchDoctors = async () => {
-//   const { data, error } = await supabaseAdmin
-//     .from('doctors')
-//     .select('*');
+fetchDoctors();
 
-//   if (error) {
-//     console.error("Error fetching doctors:", error);
-//   } else {
-//     console.log("Doctors data:", data);
-//   }
-// };
-
-// fetchDoctors();
-
-app.use('/patients',patientRouter);
-app.use('/doctors',doctorRouter)
+// Mount routers
+app.use('/patients', patientRouter);
+app.use('/doctors', doctorRouter);
+app.use('/',appointmentRouter);
 
 // Home route
 app.get('/',(req,res)=>{
     res.status(200).json({
         message:"Server is running",
         data:"hello"
-    })
+    });
 });
 
 // 404 handler - Keep this as the last route
-app.get('*',(req,res)=>{
+app.use((req,res)=>{
+    console.log('404 - Route not found:', req.method, req.url);
     res.status(404).json({
-        message:"No page found"
-    })
+        message:"Route not found"
+    });
 });
 
 app.listen(port,()=>{
     console.log(`Server is running on port ${port}`);
+
 });
