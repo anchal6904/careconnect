@@ -96,13 +96,6 @@ const NavigationBar = () => {
               About
             </Link>
             <Link 
-              to="/services" 
-              className={`nav-link nav-link-animated ${location.pathname === '/services' ? 'active' : ''}`}
-              onClick={handleLinkClick}
-            >
-              Services
-            </Link>
-            <Link 
               to="/hospitals" 
               className={`nav-link nav-link-animated ${location.pathname === '/hospitals' ? 'active' : ''}`}
               onClick={handleLinkClick}
