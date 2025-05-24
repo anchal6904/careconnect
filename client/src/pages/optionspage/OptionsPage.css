@@ -1,0 +1,114 @@
+.options-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+  padding: 4rem 0;
+}
+
+.options-header {
+  margin-bottom: 3rem;
+}
+
+.options-header h1 {
+  color: #2c3e50;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.options-header .lead {
+  color: #7f8c8d;
+  font-size: 1.2rem;
+}
+
+.option-card {
+  border: none;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  background: white;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+}
+
+.option-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.patient-card:hover {
+  background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%);
+}
+
+.doctor-card:hover {
+  background: linear-gradient(135deg, #ffffff 0%, #fff0f0 100%);
+}
+
+.icon-wrapper {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa;
+  transition: all 0.3s ease;
+}
+
+.patient-card:hover .icon-wrapper {
+  background: #e3f2fd;
+}
+
+.doctor-card:hover .icon-wrapper {
+  background: #ffebee;
+}
+
+.option-icon {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  transition: all 0.3s ease;
+}
+
+.patient-card:hover .option-icon {
+  color: #1976d2;
+}
+
+.doctor-card:hover .option-icon {
+  color: #d32f2f;
+}
+
+.option-card h3 {
+  color: #2c3e50;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.option-card p {
+  color: #7f8c8d;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.option-link {
+  color: #3498db;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.patient-card:hover .option-link {
+  color: #1976d2;
+}
+
+.doctor-card:hover .option-link {
+  color: #d32f2f;
+}
+
+.signup-link {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.signup-link:hover {
+  color: #2980b9;
+  text-decoration: underline;
+} 

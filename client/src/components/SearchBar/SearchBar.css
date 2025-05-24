@@ -28,7 +28,7 @@
 }
 
 .search-input-wrapper.focused .search-icon {
-  color: #4154f1;
+  color: var(--color-teal);
 }
 
 .search-input {
@@ -50,11 +50,11 @@
 }
 
 .search-input:focus::placeholder {
-  color: #bbb;
+  color: var(--color-teal);
 }
 
 .search-input:focus {
-  border-color: #4154f1;
+  border-color: var(--color-mint);
   box-shadow: 0 0 0 4px rgba(65, 84, 241, 0.15);
   transform: translateY(-1px);
 }
@@ -95,15 +95,17 @@
   transform: translateX(-50%) translateY(-10px);
   background: white;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  max-height: 400px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  max-height: calc(5 * (16px + 16px + 16px + 4px)); /* Height of 5 items: padding + content + gap */
   overflow-y: auto;
+  overflow-x: hidden;
   z-index: 1000;
   border: 1px solid #eee;
   width: 120%;
-  min-width: max-content;
   opacity: 0;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  scrollbar-width: thin;
+  scrollbar-color: #21e4d4 #f8f9fa;
 }
 
 .search-dropdown.focused {
@@ -120,11 +122,11 @@
   background: linear-gradient(to right, #f8f9fa 50%, white 50%);
   background-size: 200% 100%;
   background-position: right bottom;
-  white-space: nowrap;
-  min-width: 100%;
   display: flex;
   flex-direction: column;
   gap: 4px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .dropdown-item:last-child {
@@ -133,7 +135,8 @@
 
 .dropdown-item:hover {
   background-position: left bottom;
-  transform: translateX(4px);
+  padding-left: 28px;
+  transform: none;
 }
 
 .disease-name {
@@ -143,12 +146,13 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .mini-search-icon {
   font-size: 12px;
-  color: #4154f1;
+  color: var(--color-mint);
   opacity: 0;
   transform: translateX(-10px);
   transition: all 0.3s ease;
@@ -162,29 +166,34 @@
 
 .disease-description {
   font-size: 13px;
-  color: #666;
+  color: hsl(0, 0%, 40%);
   line-height: 1.4;
-  white-space: normal;
-  max-width: 600px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  max-width: 100%;
 }
 
-/* Custom scrollbar for the dropdown */
+/* Webkit scrollbar styling */
 .search-dropdown::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 .search-dropdown::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 4px;
+  background: #f8f9fa;
+  border-radius: 3px;
 }
 
 .search-dropdown::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 4px;
+  background: #4154f1;
+  border-radius: 3px;
 }
 
 .search-dropdown::-webkit-scrollbar-thumb:hover {
-  background: #bbb;
+  background: #3142c4;
 }
 
 /* Responsive adjustments */

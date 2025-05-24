@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { BsChevronRight, BsClipboardData, BsGem, BsInboxes } from 'react-icons/bs';
-import heroImage from '../../assets/hero-bg.jpg';
+import heroImage from '../../assets/hero-bg1.jpg';
 import './Hero.css';
 
 const Hero = () => {
@@ -11,7 +11,7 @@ const Hero = () => {
       
       <Container>
         <div className="welcome">
-          <h2>WELCOME TO CareConnect</h2>
+          <h2>WELCOME  TO  CARECONNECT</h2>
           <p>We are team of talented doctors providing quality healthcare services</p>
         </div>
 
@@ -26,8 +26,8 @@ const Hero = () => {
                 <li>Advanced Medical Technology</li>
               </ul>
               <div className="text-center">
-                <a href="#about" className="more-btn">
-                  <span>Learn More</span> <BsChevronRight />
+                <a href="login" className="more-btn">
+                  <span>Book Appointment</span> <BsChevronRight />
                 </a>
               </div>
             </div>

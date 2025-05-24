@@ -1,0 +1,87 @@
+.signup-container {
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 2rem;
+}
+
+.signup-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.signup-card {
+  min-width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  position: relative;
+  z-index: 1;
+}
+
+.signup-card .card-body {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.signup-card h2 {
+  color: teal;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.form-label {
+  font-weight: 500;
+  color: #333;
+}
+
+.form-control {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: teal;
+  box-shadow: 0 0 0 2px rgba(0, 128, 128, 0.1);
+}
+
+.btn-primary {
+  background-color: teal;
+  border: none;
+  padding: 0.75rem;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #006666;
+}
+
+.login-link {
+  color: teal;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+} 

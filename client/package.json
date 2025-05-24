@@ -1,34 +1,41 @@
 {
-  "name": "careconnect",
+  "name": "medicl",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint .",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
+    "@fortawesome/fontawesome-free": "^6.7.2",
+    "@srexi/purecounterjs": "^1.5.0",
+    "@supabase/supabase-js": "^2.49.5",
     "aos": "^2.3.4",
-    "react": "^19.0.0",
+    "axios": "^1.9.0",
+    "bootstrap": "^5.3.6",
+    "leaflet": "^1.9.4",
+    "react": "^18.2.0",
     "react-bootstrap": "^2.10.10",
-    "react-dom": "^19.0.0",
+    "react-calendar": "^5.1.0",
+    "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.5.2",
     "react-icons": "^5.5.0",
-    "react-router-dom": "^7.6.0",
+    "react-router-dom": "^6.30.0",
     "react-toastify": "^11.0.5",
-    "swiper": "^11.2.8"
+    "swiper": "^11.2.7"
   },
   "devDependencies": {
-    "@eslint/js": "^9.19.0",
-    "@types/react": "^19.0.8",
-    "@types/react-dom": "^19.0.3",
-    "@vitejs/plugin-react": "^4.3.4",
-    "eslint": "^9.19.0",
-    "eslint-plugin-react": "^7.37.4",
-    "eslint-plugin-react-hooks": "^5.0.0",
-    "eslint-plugin-react-refresh": "^0.4.18",
-    "globals": "^15.14.0",
-    "vite": "^6.1.0"
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
+    "@vitejs/plugin-react": "^4.2.0",
+    "eslint": "^8.53.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.4",
+    "vite": "^6.3.5"
   }
 }

@@ -1,0 +1,1104 @@
+[
+    {
+        "id": "H001",
+        "name": "Fortis Hospital",
+        "location": "Bangalore",
+        "latitude": 17.830561,
+        "longitude": 75.855083,
+        "services": [
+            "laboratory",
+            "regular checkup",
+            "mental wellness",
+            "research centres",
+            "emergency"
+        ],
+        "specialties": [
+            "ENT",
+            "cardiology",
+            "oncology",
+            "orthopedics",
+            "psychiatry"
+        ]
+    },
+    {
+        "id": "H002",
+        "name": "Max Healthcare",
+        "location": "Hyderabad",
+        "latitude": 27.376393,
+        "longitude": 76.105959,
+        "services": [
+            "laboratory",
+            "regular checkup",
+            "research centres"
+        ],
+        "specialties": [
+            "cardiology",
+            "psychiatry",
+            "oncology",
+            "pediatrics",
+            "orthopedics"
+        ]
+    },
+    {
+        "id": "H003",
+        "name": "AIIMS",
+        "location": "Chennai",
+        "latitude": 17.71724,
+        "longitude": 76.215936,
+        "services": [
+            "laboratory",
+            "regular checkup",
+            "emergency",
+            "mental wellness",
+            "research centres"
+        ],
+        "specialties": [
+            "orthopedics",
+            "cardiology"
+        ]
+    },
+    {
+        "id": "H004",
+        "name": "Apollo Hospital",
+        "location": "Bangalore",
+        "latitude": 25.860447,
+        "longitude": 76.346901,
+        "services": [
+            "emergency",
+            "research centres",
+            "laboratory",
+            "regular checkup"
+        ],
+        "specialties": [
+            "cardiology",
+            "dermatology",
+            "ENT"
+        ]
+    },
+    {
+        "id": "H005",
+        "name": "Medanta",
+        "location": "Mumbai",
+        "latitude": 28.276912,
+        "longitude": 75.989464,
+        "services": [
+            "laboratory",
+            "emergency",
+            "research centres"
+        ],
+        "specialties": [
+            "psychiatry",
+            "orthopedics",
+            "ENT"
+        ]
+    },
+    {
+        "id": "H006",
+        "name": "Care Hospital",
+        "location": "Mumbai",
+        "latitude": 20.657364,
+        "longitude": 77.023574,
+        "services": [
+            "laboratory",
+            "mental wellness",
+            "emergency"
+        ],
+        "specialties": [
+            "cardiology",
+            "oncology",
+            "orthopedics"
+        ]
+    },
+    {
+        "id": "H007",
+        "name": "Columbia Asia",
+        "location": "Mumbai",
+        "latitude": 26.310101,
+        "longitude": 75.306141,
+        "services": [
+            "regular checkup",
+            "research centres",
+            "mental wellness",
+            "emergency"
+        ],
+        "specialties": [
+            "neurology",
+            "cardiology",
+            "oncology",
+            "gynecology",
+            "pulmonology"
+        ]
+    },
+    {
+        "id": "H008",
+        "name": "Manipal Hospitals",
+        "location": "Chennai",
+        "latitude": 24.696518,
+        "longitude": 75.684361,
+        "services": [
+            "laboratory",
+            "mental wellness"
+        ],
+        "specialties": [
+            "ENT",
+            "psychiatry",
+            "neurology",
+            "pediatrics",
+            "dermatology"
+        ]
+    },
+    {
+        "id": "H009",
+        "name": "Narayana Health",
+        "location": "Kolkata",
+        "latitude": 27.807982,
+        "longitude": 77.002069,
+        "services": [
+            "emergency",
+            "regular checkup",
+            "laboratory",
+            "research centres",
+            "mental wellness"
+        ],
+        "specialties": [
+            "gynecology",
+            "oncology",
+            "ENT",
+            "neurology",
+            "cardiology"
+        ]
+    },
+    {
+        "id": "H010",
+        "name": "BLK Super Speciality",
+        "location": "Mumbai",
+        "latitude": 27.463569,
+        "longitude": 76.210512,
+        "services": [
+            "emergency",
+            "mental wellness",
+            "laboratory",
+            "regular checkup",
+            "research centres"
+        ],
+        "specialties": [
+            "cardiology",
+            "neurology",
+            "gynecology",
+            "pediatrics"
+        ]
+    },
+    {
+        "id": "H011",
+        "name": "Kokilaben Dhirubhai Ambani",
+        "location": "Jaipur",
+        "latitude": 23.158386,
+        "longitude": 76.704438,
+        "services": [
+            "research centres",
+            "mental wellness",
+            "laboratory",
+            "regular checkup",
+            "emergency"
+        ],
+        "specialties": [
+            "dermatology",
+            "pediatrics"
+        ]
+    },
+    {
+        "id": "H012",
+        "name": "Sir Ganga Ram Hospital",
+        "location": "Pune",
+        "latitude": 19.496892,
+        "longitude": 76.219554,
+        "services": [
+            "regular checkup",
+            "emergency",
+            "mental wellness",
+            "laboratory"
+        ],
+        "specialties": [
+            "gynecology",
+            "dermatology",
+            "pulmonology",
+            "cardiology"
+        ]
+    },
+    {
+        "id": "H013",
+        "name": "Lilavati Hospital",
+        "location": "Jaipur",
+        "latitude": 17.152317,
+        "longitude": 77.009769,
+        "services": [
+            "laboratory",
+            "emergency"
+        ],
+        "specialties": [
+            "gynecology",
+            "ENT",
+            "cardiology",
+            "orthopedics",
+            "neurology"
+        ]
+    },
+    {
+        "id": "H014",
+        "name": "CIMS Hospital",
+        "location": "Jaipur",
+        "latitude": 20.633572,
+        "longitude": 75.031903,
+        "services": [
+            "emergency",
+            "research centres",
+            "laboratory"
+        ],
+        "specialties": [
+            "dermatology",
+            "neurology",
+            "gynecology",
+            "cardiology"
+        ]
+    },
+    {
+        "id": "H015",
+        "name": "Jaslok Hospital",
+        "location": "Hyderabad",
+        "latitude": 26.700208,
+        "longitude": 76.353475,
+        "services": [
+            "emergency",
+            "mental wellness"
+        ],
+        "specialties": [
+            "ENT",
+            "cardiology",
+            "pulmonology",
+            "orthopedics",
+            "gynecology"
+        ]
+    },
+    {
+        "id": "H016",
+        "name": "Amrita Hospital",
+        "location": "Ahmedabad",
+        "latitude": 25.412444,
+        "longitude": 76.573626,
+        "services": [
+            "regular checkup",
+            "research centres",
+            "mental wellness",
+            "laboratory",
+            "emergency"
+        ],
+        "specialties": [
+            "pediatrics",
+            "psychiatry",
+            "dermatology",
+            "gynecology"
+        ]
+    },
+    {
+        "id": "H017",
+        "name": "Rajiv Gandhi Hospital",
+        "location": "Pune",
+        "latitude": 23.394181,
+        "longitude": 76.988713,
+        "services": [
+            "research centres",
+            "mental wellness",
+            "emergency",
+            "regular checkup",
+            "laboratory"
+        ],
+        "specialties": [
+            "psychiatry",
+            "pediatrics",
+            "pulmonology"
+        ]
+    },
+    {
+        "id": "H018",
+        "name": "Global Hospital",
+        "location": "Bangalore",
+        "latitude": 26.433958,
+        "longitude": 75.389958,
+        "services": [
+            "mental wellness",
+            "regular checkup",
+            "research centres"
+        ],
+        "specialties": [
+            "ENT",
+            "cardiology",
+            "gynecology",
+            "pulmonology"
+        ]
+    },
+    {
+        "id": "H019",
+        "name": "KIMS Hospital",
+        "location": "Jaipur",
+        "latitude": 20.612352,
+        "longitude": 77.130666,
+        "services": [
+            "mental wellness",
+            "regular checkup",
+            "research centres",
+            "emergency",
+            "laboratory"
+        ],
+        "specialties": [
+            "psychiatry",
+            "cardiology",
+            "pulmonology",
+            "dermatology"
+        ]
+    },
+    {
+        "id": "H020",
+        "name": "Zydus Hospital",
+        "location": "Delhi",
+        "latitude": 24.751809,
+        "longitude": 75.232753,
+        "services": [
+            "regular checkup",
+            "emergency",
+            "laboratory"
+        ],
+        "specialties": [
+            "pediatrics",
+            "gynecology",
+            "orthopedics",
+            "oncology"
+        ]
+    },
+    {
+        "id": "H021",
+        "name": "Sankara Nethralaya",
+        "location": "Hyderabad",
+        "latitude": 22.868712,
+        "longitude": 76.033898,
+        "services": [
+            "laboratory",
+            "research centres",
+            "emergency"
+        ],
+        "specialties": [
+            "pulmonology",
+            "cardiology"
+        ]
+    },
+    {
+        "id": "H022",
+        "name": "Vikram Hospital",
+        "location": "Bangalore",
+        "latitude": 21.816638,
+        "longitude": 76.729146,
+        "services": [
+            "research centres",
+            "regular checkup"
+        ],
+        "specialties": [
+            "pediatrics",
+            "neurology",
+            "orthopedics",
+            "psychiatry"
+        ]
+    },
+    {
+        "id": "H023",
+        "name": "Yashoda Hospitals",
+        "location": "Bangalore",
+        "latitude": 22.685592,
+        "longitude": 75.062205,
+        "services": [
+            "laboratory",
+            "emergency"
+        ],
+        "specialties": [
+            "oncology",
+            "gynecology"
+        ]
+    },
+    {
+        "id": "H024",
+        "name": "Bangalore Baptist Hospital",
+        "location": "Hyderabad",
+        "latitude": 28.649111,
+        "longitude": 77.165014,
+        "services": [
+            "laboratory",
+            "research centres"
+        ],
+        "specialties": [
+            "neurology",
+            "pediatrics",
+            "cardiology"
+        ]
+    },
+    {
+        "id": "H025",
+        "name": "Ruby Hall Clinic",
+        "location": "Jaipur",
+        "latitude": 26.774394,
+        "longitude": 76.493563,
+        "services": [
+            "research centres",
+            "regular checkup",
+            "mental wellness",
+            "emergency"
+        ],
+        "specialties": [
+            "cardiology",
+            "pulmonology",
+            "pediatrics"
+        ]
+    },
+    {
+        "id": "H026",
+        "name": "Command Hospital",
+        "location": "Pune",
+        "latitude": 24.574299,
+        "longitude": 75.90652,
+        "services": [
+            "laboratory",
+            "regular checkup",
+            "mental wellness"
+        ],
+        "specialties": [
+            "gynecology",
+            "pediatrics",
+            "pulmonology",
+            "dermatology",
+            "neurology"
+        ]
+    },
+    {
+        "id": "H027",
+        "name": "Sparsh Hospital",
+        "location": "Jaipur",
+        "latitude": 19.430627,
+        "longitude": 76.076973,
+        "services": [
+            "mental wellness",
+            "research centres",
+            "laboratory",
+            "emergency"
+        ],
+        "specialties": [
+            "psychiatry",
+            "neurology",
+            "pediatrics",
+            "dermatology",
+            "gynecology"
+        ]
+    },
+    {
+        "id": "H028",
+        "name": "Max Super Specialty Hospital",
+        "location": "Jaipur",
+        "latitude": 23.398382,
+        "longitude": 75.847123,
+        "services": [
+            "mental wellness",
+            "research centres",
+            "emergency",
+            "laboratory",
+            "regular checkup"
+        ],
+        "specialties": [
+            "gynecology",
+            "neurology"
+        ]
+    },
+    {
+        "id": "H029",
+        "name": "Indraprastha Apollo",
+        "location": "Delhi",
+        "latitude": 26.261374,
+        "longitude": 76.484965,
+        "services": [
+            "emergency",
+            "regular checkup"
+        ],
+        "specialties": [
+            "pulmonology",
+            "cardiology",
+            "ENT"
+        ]
+    },
+    {
+        "id": "H030",
+        "name": "Pushpawati Singhania Hospital",
+        "location": "Pune",
+        "latitude": 19.594415,
+        "longitude": 76.861801,
+        "services": [
+            "emergency",
+            "laboratory"
+        ],
+        "specialties": [
+            "gynecology",
+            "pediatrics",
+            "orthopedics",
+            "oncology",
+            "neurology"
+        ]
+    },
+    {
+        "id": "H031",
+        "name": "Saraswati Hospital",
+        "location": "Pune",
+        "latitude": 18.411708,
+        "longitude": 75.593927,
+        "services": [
+            "emergency",
+            "mental wellness",
+            "research centres"
+        ],
+        "specialties": [
+            "pulmonology",
+            "ENT",
+            "cardiology"
+        ]
+    },
+    {
+        "id": "H032",
+        "name": "Sterling Hospital",
+        "location": "Kolkata",
+        "latitude": 23.532164,
+        "longitude": 75.171915,
+        "services": [
+            "mental wellness",
+            "emergency"
+        ],
+        "specialties": [
+            "orthopedics",
+            "pulmonology",
+            "psychiatry"
+        ]
+    },
+    {
+        "id": "H033",
+        "name": "Columbia Asia Hospital",
+        "location": "Kolkata",
+        "latitude": 23.735717,
+        "longitude": 77.188435,
+        "services": [
+            "mental wellness",
+            "emergency",
+            "research centres",
+            "regular checkup"
+        ],
+        "specialties": [
+            "neurology",
+            "dermatology",
+            "orthopedics",
+            "psychiatry",
+            "oncology"
+        ]
+    },
+    {
+        "id": "H034",
+        "name": "KMC Hospital",
+        "location": "Ahmedabad",
+        "latitude": 27.515016,
+        "longitude": 76.770451,
+        "services": [
+            "research centres",
+            "mental wellness"
+        ],
+        "specialties": [
+            "oncology",
+            "gynecology",
+            "orthopedics",
+            "neurology",
+            "ENT"
+        ]
+    },
+    {
+        "id": "H035",
+        "name": "Bhagwan Mahavir Hospital",
+        "location": "Lucknow",
+        "latitude": 20.308916,
+        "longitude": 76.125878,
+        "services": [
+            "research centres",
+            "regular checkup",
+            "mental wellness",
+            "laboratory",
+            "emergency"
+        ],
+        "specialties": [
+            "oncology",
+            "gynecology",
+            "ENT"
+        ]
+    },
+    {
+        "id": "H036",
+        "name": "Rajiv Gandhi Cancer Institute",
+        "location": "Jaipur",
+        "latitude": 23.082647,
+        "longitude": 75.07757,
+        "services": [
+            "mental wellness",
+            "research centres",
+            "regular checkup",
+            "emergency",
+            "laboratory"
+        ],
+        "specialties": [
+            "dermatology",
+            "ENT",
+            "orthopedics",
+            "neurology",
+            "pediatrics"
+        ]
+    },
+    {
+        "id": "H037",
+        "name": "Nanavati Hospital",
+        "location": "Jaipur",
+        "latitude": 25.510093,
+        "longitude": 75.534083,
+        "services": [
+            "research centres",
+            "regular checkup",
+            "emergency"
+        ],
+        "specialties": [
+            "psychiatry",
+            "gynecology",
+            "dermatology"
+        ]
+    },
+    {
+        "id": "H038",
+        "name": "Hiranandani Hospital",
+        "location": "Bangalore",
+        "latitude": 18.274833,
+        "longitude": 75.468631,
+        "services": [
+            "mental wellness",
+            "emergency",
+            "regular checkup",
+            "laboratory",
+            "research centres"
+        ],
+        "specialties": [
+            "neurology",
+            "pulmonology",
+            "pediatrics",
+            "psychiatry",
+            "dermatology"
+        ]
+    },
+    {
+        "id": "H039",
+        "name": "Yashoda Hospital",
+        "location": "Delhi",
+        "latitude": 19.721322,
+        "longitude": 76.194093,
+        "services": [
+            "regular checkup",
+            "laboratory",
+            "mental wellness"
+        ],
+        "specialties": [
+            "neurology",
+            "oncology",
+            "orthopedics"
+        ]
+    },
+    {
+        "id": "H040",
+        "name": "Wockhardt Hospital",
+        "location": "Jaipur",
+        "latitude": 19.847632,
+        "longitude": 76.828629,
+        "services": [
+            "regular checkup",
+            "mental wellness",
+            "research centres",
+            "emergency"
+        ],
+        "specialties": [
+            "orthopedics",
+            "psychiatry",
+            "cardiology",
+            "pediatrics",
+            "gynecology"
+        ]
+    },
+    {
+        "id": "H041",
+        "name": "KJ Somaiya Hospital",
+        "location": "Hyderabad",
+        "latitude": 19.025913,
+        "longitude": 75.86325,
+        "services": [
+            "mental wellness",
+            "research centres",
+            "laboratory",
+            "regular checkup",
+            "emergency"
+        ],
+        "specialties": [
+            "oncology",
+            "pediatrics",
+            "cardiology",
+            "orthopedics",
+            "dermatology"
+        ]
+    },
+    {
+        "id": "H042",
+        "name": "Fortis Escorts",
+        "location": "Ahmedabad",
+        "latitude": 21.330425,
+        "longitude": 76.820629,
+        "services": [
+            "emergency",
+            "laboratory",
+            "mental wellness",
+            "regular checkup",
+            "research centres"
+        ],
+        "specialties": [
+            "neurology",
+            "psychiatry",
+            "orthopedics",
+            "cardiology"
+        ]
+    },
+    {
+        "id": "H043",
+        "name": "Manipal Northside",
+        "location": "Delhi",
+        "latitude": 25.381736,
+        "longitude": 77.134566,
+        "services": [
+            "laboratory",
+            "research centres",
+            "emergency"
+        ],
+        "specialties": [
+            "dermatology",
+            "gynecology",
+            "cardiology",
+            "orthopedics"
+        ]
+    },
+    {
+        "id": "H044",
+        "name": "KIMS",
+        "location": "Mumbai",
+        "latitude": 20.626019,
+        "longitude": 76.283204,
+        "services": [
+            "mental wellness",
+            "research centres",
+            "regular checkup"
+        ],
+        "specialties": [
+            "dermatology",
+            "psychiatry",
+            "cardiology",
+            "ENT",
+            "orthopedics"
+        ]
+    },
+    {
+        "id": "H045",
+        "name": "Rajagiri Hospital",
+        "location": "Chennai",
+        "latitude": 28.270878,
+        "longitude": 76.876836,
+        "services": [
+            "laboratory",
+            "research centres"
+        ],
+        "specialties": [
+            "neurology",
+            "cardiology",
+            "gynecology",
+            "oncology",
+            "orthopedics"
+        ]
+    },
+    {
+        "id": "H046",
+        "name": "Lakshmi Hospital",
+        "location": "Delhi",
+        "latitude": 25.867194,
+        "longitude": 76.065782,
+        "services": [
+            "laboratory",
+            "research centres",
+            "regular checkup",
+            "mental wellness",
+            "emergency"
+        ],
+        "specialties": [
+            "cardiology",
+            "ENT",
+            "gynecology"
+        ]
+    },
+    {
+        "id": "H047",
+        "name": "Rajiv Gandhi Super Specialty Hospital",
+        "location": "Jaipur",
+        "latitude": 18.720192,
+        "longitude": 77.023839,
+        "services": [
+            "emergency",
+            "laboratory",
+            "research centres",
+            "mental wellness"
+        ],
+        "specialties": [
+            "cardiology",
+            "psychiatry",
+            "orthopedics",
+            "dermatology",
+            "ENT"
+        ]
+    },
+    {
+        "id": "H048",
+        "name": "Aster CMI Hospital",
+        "location": "Mumbai",
+        "latitude": 22.882023,
+        "longitude": 75.296089,
+        "services": [
+            "mental wellness",
+            "research centres",
+            "regular checkup",
+            "emergency",
+            "laboratory"
+        ],
+        "specialties": [
+            "oncology",
+            "orthopedics",
+            "ENT",
+            "cardiology",
+            "gynecology"
+        ]
+    },
+    {
+        "id": "H049",
+        "name": "Carewell Hospital",
+        "location": "Hyderabad",
+        "latitude": 20.032651,
+        "longitude": 75.011346,
+        "services": [
+            "research centres",
+            "laboratory",
+            "regular checkup",
+            "mental wellness"
+        ],
+        "specialties": [
+            "orthopedics",
+            "dermatology",
+            "psychiatry"
+        ]
+    },
+    {
+        "id": "H050",
+        "name": "City Hospital",
+        "location": "Bangalore",
+        "latitude": 21.690291,
+        "longitude": 75.070016,
+        "services": [
+            "research centres",
+            "mental wellness",
+            "emergency"
+        ],
+        "specialties": [
+            "oncology",
+            "orthopedics",
+            "ENT",
+            "pediatrics"
+        ]
+    },
+    {
+        "id": "H051",
+        "name": "Deenanath Mangeshkar Hospital",
+        "location": "Pune",
+        "latitude": 25.808644,
+        "longitude": 75.770279,
+        "services": [
+            "emergency",
+            "research centres",
+            "laboratory"
+        ],
+        "specialties": [
+            "gynecology",
+            "neurology",
+            "orthopedics",
+            "pediatrics"
+        ]
+    },
+    {
+        "id": "H052",
+        "name": "Global Hospitals",
+        "location": "Bangalore",
+        "latitude": 18.373905,
+        "longitude": 75.774891,
+        "services": [
+            "emergency",
+            "laboratory",
+            "mental wellness",
+            "research centres",
+            "regular checkup"
+        ],
+        "specialties": [
+            "orthopedics",
+            "neurology",
+            "oncology",
+            "cardiology"
+        ]
+    },
+    {
+        "id": "H053",
+        "name": "HCG Hospital",
+        "location": "Chennai",
+        "latitude": 26.192592,
+        "longitude": 75.677169,
+        "services": [
+            "research centres",
+            "laboratory",
+            "regular checkup"
+        ],
+        "specialties": [
+            "pulmonology",
+            "gynecology"
+        ]
+    },
+    {
+        "id": "H054",
+        "name": "Hyderabad Kidney Institute",
+        "location": "Jaipur",
+        "latitude": 20.817788,
+        "longitude": 76.065871,
+        "services": [
+            "mental wellness",
+            "research centres"
+        ],
+        "specialties": [
+            "oncology",
+            "orthopedics"
+        ]
+    },
+    {
+        "id": "H055",
+        "name": "Indian Spinal Injuries Centre",
+        "location": "Kolkata",
+        "latitude": 27.1474,
+        "longitude": 76.358164,
+        "services": [
+            "emergency",
+            "mental wellness",
+            "research centres",
+            "regular checkup",
+            "laboratory"
+        ],
+        "specialties": [
+            "gynecology",
+            "oncology"
+        ]
+    },
+    {
+        "id": "H056",
+        "name": "Jeevan Rekha Hospital",
+        "location": "Pune",
+        "latitude": 20.765494,
+        "longitude": 77.156677,
+        "services": [
+            "regular checkup",
+            "mental wellness",
+            "research centres"
+        ],
+        "specialties": [
+            "gynecology",
+            "psychiatry"
+        ]
+    },
+    {
+        "id": "H057",
+        "name": "Kokilaben Dhirubhai Ambani Hospital",
+        "location": "Lucknow",
+        "latitude": 24.279731,
+        "longitude": 76.136058,
+        "services": [
+            "laboratory",
+            "mental wellness",
+            "regular checkup"
+        ],
+        "specialties": [
+            "dermatology",
+            "cardiology"
+        ]
+    },
+    {
+        "id": "H058",
+        "name": "Lilavati Hospital And Research Centre",
+        "location": "Bangalore",
+        "latitude": 21.132728,
+        "longitude": 76.345228,
+        "services": [
+            "emergency",
+            "research centres",
+            "laboratory",
+            "mental wellness",
+            "regular checkup"
+        ],
+        "specialties": [
+            "neurology",
+            "pulmonology",
+            "dermatology",
+            "cardiology",
+            "psychiatry"
+        ]
+    },
+    {
+        "id": "H059",
+        "name": "Fortis Hospital",
+        "location": "Lucknow",
+        "latitude": 26.594294,
+        "longitude": 76.3123,
+        "services": [
+            "research centres",
+            "mental wellness",
+            "emergency"
+        ],
+        "specialties": [
+            "pediatrics",
+            "gynecology",
+            "cardiology",
+            "psychiatry"
+        ]
+    },
+    {
+        "id": "H060",
+        "name": "Max Healthcare",
+        "location": "Lucknow",
+        "latitude": 26.699392,
+        "longitude": 75.227622,
+        "services": [
+            "research centres",
+            "mental wellness"
+        ],
+        "specialties": [
+            "psychiatry",
+            "dermatology",
+            "pulmonology",
+            "oncology",
+            "pediatrics"
+        ]
+    }
+]

@@ -1,0 +1,485 @@
+.hospitals-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f0f7ff 0%, #e6f3ff 100%);
+  padding: 2rem 0;
+  position: relative;
+}
+
+.page-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #f0f7ff 0%, #e6f3ff 100%);
+  z-index: -1;
+}
+
+.page-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(52, 152, 219, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(52, 152, 219, 0.1) 0%, transparent 50%);
+  animation: backgroundShift 15s ease-in-out infinite alternate;
+}
+
+@keyframes backgroundShift {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.1); }
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.page-header p {
+  color: #6c757d;
+  font-size: 1.1rem;
+}
+
+.search-filter-container {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 1.5rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+  backdrop-filter: blur(10px);
+}
+
+.search-section {
+  margin-bottom: 1rem;
+}
+
+.search-input-group {
+  background: white;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.search-input-group:focus-within {
+  border-color: #3498db;
+  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+.search-input-group .input-group-text {
+  background: white;
+  border: none;
+  color: #6c757d;
+  padding: 0.75rem 1rem;
+}
+
+.search-input {
+  border: none;
+  padding: 0.75rem;
+  font-size: 1.1rem;
+}
+
+.search-input:focus {
+  box-shadow: none;
+}
+
+.clear-btn {
+  color: #6c757d;
+  padding: 0.5rem;
+  border: none;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.clear-btn:hover {
+  color: #dc3545;
+}
+
+.filter-section {
+  margin-top: 1rem;
+}
+
+.department-select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  color: #2c3e50;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.department-select:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+.hospitals-grid {
+  margin-top: 2rem;
+}
+
+.hospital-card {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(10px);
+  min-height: 600px;
+}
+
+.hospital-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.hospital-image {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.hospital-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.hospital-card:hover .hospital-image img {
+  transform: scale(1.05);
+}
+
+.hospital-rating {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  color: #f1c40f;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.hospital-content {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 400px;
+}
+
+.hospital-header {
+  margin-bottom: 1rem;
+}
+
+.hospital-title h3 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.hospital-meta {
+  color: #6c757d;
+}
+
+.hospital-meta .address {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.departments-section {
+  margin-bottom: 1.5rem;
+  min-height: 80px;
+}
+
+.departments-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.departments-row:last-child {
+  margin-bottom: 0;
+}
+
+.department-tag {
+  flex: 1;
+  padding: 0.4rem 0.8rem;
+  background: #e9ecef;
+  border-radius: 20px;
+  color: #2c3e50;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+.department-tag:hover {
+  background: #dee2e6;
+}
+
+.department-tag.more {
+  background: #3498db;
+  color: white;
+}
+
+.hospital-info {
+  flex: 1;
+  min-height: 200px;
+}
+
+.info-section {
+  margin-bottom: 1.5rem;
+}
+
+.info-section h4 {
+  color: #2c3e50;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.doctors-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 150px;
+}
+
+.doctor-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.doctor-item:hover {
+  background: #e9ecef;
+  transform: translateX(5px);
+}
+
+.doctor-info {
+  flex: 1;
+}
+
+.doctor-info h5 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+
+.doctor-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.doctor-details .department {
+  color: #3498db;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.doctor-details .schedule {
+  color: #6c757d;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.book-now-btn {
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  background: #3498db;
+  border: none;
+  color: white;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  font-size: 0.9rem;
+}
+
+.book-now-btn:hover {
+  background: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+.hospital-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: auto;
+}
+
+.quick-book-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  background: #3498db;
+  border: none;
+  color: white;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.quick-book-btn:hover {
+  background: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+.hospital-card-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.view-details-btn {
+  width: 75%;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  background: #3498db;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.view-details-btn:hover {
+  background: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+}
+
+.more-doctors {
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.more-doctors button {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.more-doctors button:hover {
+  color: #2980b9;
+  text-decoration: underline;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  padding: 2rem;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.search-results-info {
+  margin: 1rem 0 2rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.search-results-info p {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.search-results-info p span {
+  color: #3498db;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .search-filter-container {
+    padding: 1rem;
+  }
+
+  .hospital-card {
+    margin-bottom: 1.5rem;
+  }
+
+  .doctor-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.75rem;
+  }
+
+  .doctor-details {
+    align-items: center;
+  }
+
+  .book-now-btn {
+    width: 100%;
+  }
+
+  .hospital-actions {
+    flex-direction: column;
+  }
+
+  .quick-book-btn,
+  .view-details-btn {
+    width: 100%;
+  }
+} 

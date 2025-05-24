@@ -1,19 +1,18 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import logo from '../assets/userform3cc.webp';
-import { FaFacebookF, FaTwitter, FaGoogle } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Container, Form, Button, Card } from 'react-bootstrap';
+import { toast } from 'react-toastify';
+import userform2cc from '../../assets/userform2 cc.png';
+import { FaUser, FaEnvelope, FaLock, FaGoogle, FaFacebookF, FaTwitter } from 'react-icons/fa';
+import './Login.css';
 
-import './index.css';
-
-const SignIn = () => {
+const PatientLogin = () => {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    phoneNumber: '',
     email: '',
-    password: '',
-    confirmPassword: ''
+    password: ''
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,112 +24,107 @@ const SignIn = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    
+    // Hardcoded credentials
+    const validCredentials = {
+      email: 'patient@example.com',
+      password: 'patient123'
+    };
+
+    if (formData.email === validCredentials.email && formData.password === validCredentials.password) {
+      // Store user data in localStorage
+      const userData = {
+        id: '1',
+        email: formData.email,
+        name: 'John Doe',
+        phone: '1234567890',
+        role: 'patient'
+      };
+      localStorage.setItem('user', JSON.stringify(userData));
+      localStorage.setItem('userRole', 'patient');
+      localStorage.setItem('username', userData.name);
+
+      toast.success('Login successful!');
+      navigate('/patient-dashboard');
+    } else {
+      toast.error('Invalid credentials');
+    }
   };
 
   return (
-    <div className="form-wrapper">
-      {/* Left side - Form */}
-      <div className="form-left">
-        
-        <div className="form-content">
-          <h1 style={{color:"teal"}}>User Login</h1>
-          
-          <form onSubmit={handleSubmit} className="form-fields">
-            <div className="name-row">
-
+    <div className="login-page" style={{ backgroundImage: `url(${userform2cc})` }}>
+      <div className="login-container">
+        <Card className="login-card">
+          <Card.Body>
+            <div className="text-center mb-4">
+              <div className="user-icon-wrapper mb-3">
+                <FaUser className="user-icon" />
+              </div>
+              <h2>Patient Login</h2>
+              <p className="text-muted">Welcome back! Please login to your account</p>
             </div>
 
-            {/* <div className="form-group">
-              <label htmlFor="phoneNumber">Phone Number</label>
-              <input
-                type="tel"
-                id="phoneNumber"
-                name="phoneNumber"
-                value={formData.phoneNumber}
-                onChange={handleChange}
-                placeholder="Phone Number"
-                required
-              />
-            </div> */}
+            <Form onSubmit={handleSubmit}>
+              <Form.Group className="mb-3">
+                <Form.Label>
+                  <FaEnvelope className="input-icon" /> Email
+                </Form.Label>
+                <Form.Control
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Enter your email"
+                  required
+                />
+              </Form.Group>
 
-            <div className="form-group">
-              <label htmlFor="email">Email address</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="Email address"
-                required
-              />
-            </div>
+              <Form.Group className="mb-4">
+                <Form.Label>
+                  <FaLock className="input-icon" /> Password
+                </Form.Label>
+                <Form.Control
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="Enter your password"
+                  required
+                />
+              </Form.Group>
 
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="Password"
-                required
-              />
-            </div>
+              <Button variant="primary" type="submit" className="w-100 mb-3">
+                Login
+              </Button>
 
-            {/* <div className="form-group">
-              <label htmlFor="confirmPassword">Confirm Password</label>
-              <input
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                placeholder="Confirm Password"
-                required
-              />
-            </div> */}
+              <div className="divider">
+                <span>or login with</span>
+              </div>
 
-            <button type="submit" className="submit-button">
-              Sign in
-            </button>
+              <div className="social-buttons">
+                <button type="button" className="social-button">
+                  <FaGoogle className="social-icon" />
+                </button>
+                <button type="button" className="social-button">
+                  <FaFacebookF className="social-icon" />
+                </button>
+                <button type="button" className="social-button">
+                  <FaTwitter className="social-icon" />
+                </button>
+              </div>
+            </Form>
 
-            <div className="divider">
-              <span>or continue with</span>
-            </div>
-
-            <div className="social-buttons">
-              <button type="button" className="social-button">
-                <FaGoogle className='google-icon'/>
-              </button>
-
-              <button type="button" className="social-button">
-                <FaFacebookF className='facebook-icon'/>
-              </button>
-
-              <button type="button" className="social-button">
-                <FaTwitter className='twitter-icon'/>
-              </button>
-            </div>
-          </form>
-
-          <p className="login-link">
-            Don&apos;t have an account?{' '}
-            <Link to="/signin">Sign up</Link>
-          </p>
-        </div>
-      </div>
-
-      {/* Right side - Illustration */}
-      <div className="form-right">
-        <div>
-          <img src={logo} alt="" />
-        </div>
+            <p className="text-center mt-4">
+              Don't have an account?{' '}
+              <Link to="/patient-signup" className="signup-link">
+                Sign up here
+              </Link>
+            </p>
+          </Card.Body>
+        </Card>
       </div>
     </div>
   );
 };
 
-export default SignIn;
+export default PatientLogin;

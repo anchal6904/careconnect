@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 import { IoMdClose } from 'react-icons/io';
-import { diseaseData } from '../../data/diseaseData';
+import { diseaseData } from '../../assets/diseaseData';
 import './SearchBar.css';
 
 const SearchBar = () => {
@@ -11,21 +12,25 @@ const SearchBar = () => {
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const wrapperRef = useRef(null);
   const searchTimeout = useRef(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  // Handle click outside to close dropdown only if search is not focused
   useEffect(() => {
-    function handleClickOutside(event) {
+    const handleClickOutside = (event) => {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-        if (!isSearchFocused) {
-          setShowDropdown(false);
-        }
+        setShowDropdown(false);
+        setIsSearchFocused(false);
       }
-    }
+    };
+
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [isSearchFocused]);
+  }, []);
 
-  // Handle hover events
+  useEffect(() => {
+    handleClear();
+  }, [location.pathname]);
+
   const handleMouseEnter = () => {
     if (searchTerm.trim().length > 0) {
       setShowDropdown(true);
@@ -38,36 +43,37 @@ const SearchBar = () => {
     }
   };
 
-  // Filter diseases based on search term
   useEffect(() => {
     if (searchTimeout.current) {
       clearTimeout(searchTimeout.current);
     }
 
-    searchTimeout.current = setTimeout(() => {
-      const term = searchTerm.toLowerCase().trim();
-      
-      if (term.length === 0) {
-        setFilteredDiseases([]);
-        if (!isSearchFocused) setShowDropdown(false);
-        return;
-      }
+    if (!searchTerm.trim()) {
+      setFilteredDiseases([]);
+      setShowDropdown(false);
+      return;
+    }
 
-      const filtered = diseaseData.filter(disease => {
-        const nameMatch = disease.name.toLowerCase().includes(term);
-        const synonymMatch = disease.synonyms.some(synonym => 
-          synonym.toLowerCase().includes(term)
-        );
-        
-        const exactNameMatch = disease.name.toLowerCase() === term;
-        const exactSynonymMatch = disease.synonyms.some(synonym => 
-          synonym.toLowerCase() === term
-        );
-        
-        disease.matchScore = exactNameMatch ? 3 : exactSynonymMatch ? 2 : (nameMatch || synonymMatch) ? 1 : 0;
-        
-        return nameMatch || synonymMatch;
-      }).sort((a, b) => b.matchScore - a.matchScore);
+    searchTimeout.current = setTimeout(() => {
+      const term = searchTerm.toLowerCase();
+      const filtered = diseaseData
+        .filter(disease => {
+          const nameMatch = disease.name.toLowerCase().includes(term);
+          const synonymMatch = disease.synonyms.some(synonym => 
+            synonym.toLowerCase().includes(term)
+          );
+          
+          const exactNameMatch = disease.name.toLowerCase() === term;
+          const exactSynonymMatch = disease.synonyms.some(synonym => 
+            synonym.toLowerCase() === term
+          );
+          
+          disease.matchScore = exactNameMatch ? 3 : exactSynonymMatch ? 2 : (nameMatch || synonymMatch) ? 1 : 0;
+          
+          return nameMatch || synonymMatch;
+        })
+        .sort((a, b) => b.matchScore - a.matchScore)
+        .slice(0, 5);
 
       setFilteredDiseases(filtered);
       if (filtered.length > 0) setShowDropdown(true);
@@ -81,18 +87,11 @@ const SearchBar = () => {
   }, [searchTerm]);
 
   const handleSelect = (disease) => {
-    setSearchTerm(disease.name);
-    setShowDropdown(false);
-    setIsSearchFocused(false);
-    
-    // Create a URL-friendly slug from the disease name
-    const slug = disease.name.toLowerCase().replace(/\s+/g, '-');
-    // Navigate to the disease page using history API
-    window.history.pushState({}, '', `/diseases/${slug}`);
-    // Dispatch a custom event to notify the app of navigation
-    window.dispatchEvent(new CustomEvent('navigationChange', { 
-      detail: { path: `/diseases/${slug}`, disease } 
-    }));
+    handleClear();
+    // Close the navbar by dispatching a custom event
+    const closeNavbarEvent = new CustomEvent('closeNavbar');
+    document.dispatchEvent(closeNavbarEvent);
+    navigate(`/diseases/${disease.slug}`);
   };
 
   const handleClear = () => {
@@ -124,7 +123,9 @@ const SearchBar = () => {
             }
           }}
           onBlur={() => {
-            setIsSearchFocused(false);
+            setTimeout(() => {
+              setIsSearchFocused(false);
+            }, 200);
           }}
         />
         {searchTerm && (

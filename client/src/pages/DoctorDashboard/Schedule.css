@@ -1,0 +1,83 @@
+.schedule-container {
+  padding: 2rem 1rem;
+}
+
+.schedule-card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 100%;
+}
+
+.schedule-card .card-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #eee;
+  padding: 1rem;
+}
+
+.schedule-card .card-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #333;
+}
+
+.time-slot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  border-bottom: 1px solid #eee;
+}
+
+.time-slot:last-child {
+  border-bottom: none;
+}
+
+.slot-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.slot-info .time {
+  font-weight: 500;
+  color: #333;
+}
+
+.slot-info .type {
+  font-size: 0.875rem;
+  color: #666;
+  background-color: #f8f9fa;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.slot-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.slot-actions button {
+  padding: 0.25rem 0.5rem;
+}
+
+.modal-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-title {
+  font-weight: 600;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .schedule-container {
+    padding: 1rem;
+  }
+
+  .schedule-card {
+    margin-bottom: 1rem;
+  }
+} 

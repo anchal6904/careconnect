@@ -1,0 +1,173 @@
+.hospital-detail-page {
+  padding: 2rem 0;
+  background: linear-gradient(135deg, #f0f7ff 0%, #e6f3ff 100%);
+  min-height: 100vh;
+}
+
+.hospital-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.hospital-header h1 {
+  color: #2c3e50;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.hospital-header p {
+  color: #6c757d;
+  font-size: 1.1rem;
+}
+
+.doctors-section {
+  margin-top: 2rem;
+}
+
+.doctors-section h2 {
+  color: #2c3e50;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.doctor-card {
+  background: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.doctor-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #3498db, #2980b9);
+}
+
+.doctor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.doctor-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #3498db;
+  margin-bottom: 1.5rem;
+  position: relative;
+  background: #f8f9fa;
+}
+
+.doctor-image::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  z-index: -1;
+}
+
+.doctor-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.doctor-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.doctor-info h4 {
+  color: #2c3e50;
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.doctor-specialization {
+  color: #3498db;
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.doctor-schedule {
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.book-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: #3498db;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.book-btn:hover {
+  background: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+@media (max-width: 768px) {
+  .hospital-header h1 {
+    font-size: 2rem;
+  }
+
+  .doctor-card {
+    padding: 1.25rem;
+  }
+
+  .doctor-image {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 1.25rem;
+  }
+
+  .doctor-info h4 {
+    font-size: 1.1rem;
+  }
+
+  .doctor-specialization,
+  .doctor-schedule {
+    font-size: 0.85rem;
+  }
+} 

@@ -1,5 +1,5 @@
 .footer-area {
-  background: linear-gradient(135deg, #1c2331 0%, #121a29 100%);
+  background: black;
   color: #fff;
   padding: 40px 0 20px;
   position: relative;
@@ -8,7 +8,7 @@
 
 /* Emergency Banner */
 .emergency-banner {
-  background: linear-gradient(90deg, #ff4b4b 0%, #ff6b6b 100%);
+  background: linear-gradient(90deg, var(--color-teal) 0%, var(--color-teal-dark) 100%);
   padding: 15px 0;
   margin-top: -40px;
   margin-bottom: 40px;
@@ -81,7 +81,7 @@
   display: block;
   width: 50px;
   height: 2px;
-  background: #4154f1;
+  background: var(--color-teal);
   bottom: 0;
   left: 0;
 }
@@ -107,7 +107,7 @@
 
 .icon {
   margin-right: 10px;
-  color: #4154f1;
+  color: var(--color-teal);
 }
 
 /* Quick Links */
@@ -132,7 +132,7 @@
 }
 
 .quick-links li a:hover, .services-links li a:hover {
-  color: #4154f1;
+  color: var(--color-teal);
   transform: translateX(5px);
 }
 
@@ -163,8 +163,8 @@
 
 .newsletter-input:focus {
   background: rgba(255, 255, 255, 0.15);
-  border-color: #4154f1;
-  box-shadow: 0 0 0 3px rgba(65, 84, 241, 0.25);
+  border-color: var(--color-teal);
+  box-shadow: 0 0 0 3px rgba(0, 150, 136, 0.18);
 }
 
 .newsletter-input::placeholder {
@@ -172,7 +172,7 @@
 }
 
 .newsletter-btn {
-  background: #4154f1;
+  background: linear-gradient(90deg, var(--color-teal) 60%, var(--color-teal-dark) 100%);
   border: none;
   padding: 10px 25px;
   color: #fff;
@@ -181,26 +181,13 @@
   width: 100%;
   position: relative;
   overflow: hidden;
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
-.newsletter-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  transition: all 0.6s ease;
-}
-
-.newsletter-btn:hover::before {
-  left: 100%;
-}
-
-.newsletter-btn:hover {
-  background: #4d5ff2;
-  transform: translateY(-2px);
+.newsletter-btn:hover, .newsletter-btn:focus {
+  background: linear-gradient(90deg, var(--color-teal-dark) 70%, var(--color-teal) 100%);
+  color: var(--color-mint);
 }
 
 .newsletter-btn.subscribed {
@@ -229,7 +216,7 @@
 
 .social-links a:hover {
   transform: translateY(-3px) rotate(8deg);
-  background: #4154f1;
+  background: #28efc4;
   color: #fff;
 }
 
@@ -255,7 +242,7 @@
   position: fixed;
   right: 25px;
   bottom: 25px;
-  background: #4154f1;
+  background: var(--color-teal-dark);
   width: 45px;
   height: 45px;
   border-radius: 8px;
@@ -287,7 +274,7 @@
 }
 
 .scroll-top:hover {
-  background: #4d5ff2;
+  background: var(--color-teal);
   transform: translateY(-3px) rotate(45deg) scale(1.1);
   box-shadow: 0 6px 20px rgba(65, 84, 241, 0.25);
 }

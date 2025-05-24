@@ -10,5 +10,5 @@ html {
 
 .home-page {
   min-height: 100vh;
-  background-color: #ffffff;
+  background: linear-gradient(135deg, #e0f7fa 0%, #ffffff 100%);
 } 
