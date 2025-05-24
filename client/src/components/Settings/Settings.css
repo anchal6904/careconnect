@@ -4,8 +4,9 @@
 }
 
 .settings-container h2 {
-  color: #2c3e50;
-  margin-bottom: 1.5rem;
+  color: var(--color-teal-dark);
+  margin-bottom: 1.3rem;
+  font-weight: bold;
 }
 
 .card {
@@ -13,6 +14,7 @@
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   margin-bottom: 1.5rem;
+  min-height: 95%;
 }
 
 .card-body {
@@ -29,11 +31,14 @@
 }
 
 .card h5 svg {
-  color: #3498db;
+  color: var(--color-mint);
+  background: var(--color-teal);
+  border-radius: 50%;
+  padding: 4px;
 }
 
 .form-label {
-  color: #2c3e50;
+  color: var(--color-teal-dark);
   font-weight: 500;
   margin-bottom: 0.5rem;
 }
@@ -48,8 +53,8 @@
 
 .form-control:focus,
 .form-select:focus {
-  border-color: #3498db;
-  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+  border-color: var(--color-teal);
+  box-shadow: 0 0 0 0.2rem rgba(0, 150, 136, 0.25);
 }
 
 .form-check {
@@ -72,14 +77,13 @@
 }
 
 .form-check-input:checked {
-  background-color: #3498db;
-  border-color: #3498db;
+  background-color: var(--color-teal);
+  border-color: var(--color-teal);
 }
 
 .form-check-input:focus {
-  border-color: #3498db;
-  outline: 0;
-  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+  border-color: var(--color-teal);
+  box-shadow: 0 0 0 0.2rem rgba(0, 150, 136, 0.25);
 }
 
 .form-check-label {
@@ -95,13 +99,13 @@
 }
 
 .btn-primary {
-  background-color: #3498db;
-  border-color: #3498db;
+  background-color: var(--color-teal) ;
+  border-color: var(--color-teal) ;
 }
 
 .btn-primary:hover {
-  background-color: #2980b9;
-  border-color: #2980b9;
+  background-color: var(--color-teal-dark);
+  border-color: var(--color-teal-dark);
 }
 
 .alert {

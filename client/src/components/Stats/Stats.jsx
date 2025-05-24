@@ -27,7 +27,7 @@ const Stats = () => {
   }, []);
 
   const stats = [
-    { icon: <FaUserMd />, count: 85, label: 'Doctors' },
+    { icon: <FaUserMd />, count: 200, label: 'Doctors' },
     { icon: <FaHospital />, count: 18, label: 'Departments' },
     { icon: <FaFlask />, count: 12, label: 'Research Labs' },
     { icon: <FaAward />, count: 150, label: 'Awards' }

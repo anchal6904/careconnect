@@ -8,7 +8,7 @@
 body {
   font-family: 'Inter', sans-serif;
   line-height: 1.6;
-  color: #2c3e50;
+  color: var(--color-text-main);
 }
 
 /* Hero section */
@@ -63,7 +63,7 @@ body {
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em #009688aa);
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
@@ -99,7 +99,7 @@ body {
 }
 
 .content {
-  padding-top: 80px; /* Adjusted for fixed navbar */
+  /* padding-top: 0px;  */
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -113,7 +113,7 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 2rem;
-  color: #012970;
+  color: var(--color-teal-dark);
   text-align: center;
   background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('/src/assets/hero-bg.jpg');
   background-size: cover;
@@ -124,14 +124,14 @@ body {
 /* Dropdown Item Styles */
 .dropdown-item {
   text-decoration: none;
-  color: #013289;
+  color: var(--color-teal-dark);
   padding: 8px 20px;
   display: block;
   transition: all 0.3s ease;
 }
 
 .dropdown-item:hover {
-  background: #4154f1;
+  background: var(--color-teal);
   color: white;
   padding-left: 25px;
 }

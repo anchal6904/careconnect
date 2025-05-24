@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { FaUser, FaSignOutAlt, FaBars, FaBell, FaCog } from 'react-icons/fa';
+import { FaUser, FaSignOutAlt, FaBars, FaBell, FaCog, FaCaretDown } from 'react-icons/fa';
 import { logout } from '../../utils/auth';
 import { toast } from 'react-toastify';
 import './DashboardNavbar.css';
@@ -31,16 +31,13 @@ const DashboardNavbar = () => {
         { path: '/doctor-dashboard', label: 'Dashboard', icon: '📊' },
         { path: '/doctor-dashboard/schedule', label: 'Schedule', icon: '📅' },
         { path: '/doctor-dashboard/appointments', label: 'Appointments', icon: '👥' },
-        { path: '/doctor-dashboard/patients', label: 'Patients', icon: '👨‍⚕️' },
-        { path: '/doctor-dashboard/reports', label: 'Reports', icon: '📈' }
+        { path: '/doctor-dashboard/patients', label: 'Patients', icon: '👨‍⚕️' }
       ];
     } else {
       return [
         { path: '/patient-dashboard', label: 'Dashboard', icon: '📊' },
         { path: '/patient-dashboard/make-appointment', label: 'Book Appointment', icon: '📅' },
-        { path: '/patient-dashboard/appointments', label: 'My Appointments', icon: '👥' },
-        { path: '/patient-dashboard/medical-records', label: 'Medical Records', icon: '📋' },
-        { path: '/patient-dashboard/prescriptions', label: 'Prescriptions', icon: '💊' }
+        { path: '/patient-dashboard/appointments', label: 'My Appointments', icon: '👥' }
       ];
     }
   };
@@ -79,14 +76,12 @@ const DashboardNavbar = () => {
 
           {/* User Section */}
           <Nav className="ms-auto user-section">
-            <Nav.Link className="notification-link">
-              <FaBell />
-              <span className="notification-badge">3</span>
-            </Nav.Link>
-            
             <NavDropdown
               title={
                 <div className="user-profile">
+                  <div className="dropdown-arrow">
+                    <FaCaretDown />
+                  </div>
                   <div className="user-avatar">
                     {username.charAt(0).toUpperCase()}
                   </div>
@@ -97,6 +92,7 @@ const DashboardNavbar = () => {
               show={showDropdown}
               onToggle={(isOpen) => setShowDropdown(isOpen)}
               className="user-dropdown"
+              align="end"
             >
               <NavDropdown.Item as={Link} to={`/${userRole}-dashboard/profile`}>
                 <FaUser className="me-2" />

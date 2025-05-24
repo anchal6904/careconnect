@@ -96,56 +96,12 @@ const NavigationBar = () => {
               About
             </Link>
             <Link 
-              to="/hospitals" 
-              className={`nav-link nav-link-animated ${location.pathname === '/hospitals' ? 'active' : ''}`}
+              to="/doctors" 
+              className={`nav-link nav-link-animated ${location.pathname === '/doctors' ? 'active' : ''}`}
               onClick={handleLinkClick}
             >
               Doctors
             </Link>
-            {/* <div 
-              className="nav-dropdown"
-              onMouseEnter={handleDropdownMouseEnter}
-              onMouseLeave={handleDropdownMouseLeave}
-            >
-              <NavDropdown 
-                title="More" 
-                id="basic-nav-dropdown"
-                className={`nav-link-animated`}
-                show={isDropdownOpen || isDropdownHovered}
-                onToggle={handleDropdownToggle}
-              >
-                <Link 
-                  to="/medical-services" 
-                  className="dropdown-item"
-                >
-                  Medical Services
-                </Link>
-                <Link 
-                  to="/health-packages" 
-                  className="dropdown-item"
-                >
-                  Health Packages
-                </Link>
-                <Link 
-                  to="/find-doctor" 
-                  className="dropdown-item"
-                >
-                  Find a Doctor
-                </Link>
-                <Link 
-                  to="/patient-resources" 
-                  className="dropdown-item"
-                >
-                  Patient Resources
-                </Link>
-                <Link 
-                  to="/insurance" 
-                  className="dropdown-item"
-                >
-                  Insurance & Billing
-                </Link>
-              </NavDropdown>
-            </div> */}
             <Link 
               to="/login" 
               className={`nav-link login-btn ${location.pathname === '/login' ? 'active' : ''}`}

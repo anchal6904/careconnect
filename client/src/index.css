@@ -13,6 +13,14 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --color-teal: #009688;
+  --color-teal-dark: #00796b;
+  --color-mint: #a7ffeb;
+  --color-mint-bg: #b2f5ea;
+  --color-text-main: #213547;
+  --color-bg-main: #ffffff;
+  --color-bg-dark: #242424;
 }
 
 li {
@@ -21,11 +29,11 @@ li {
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--color-teal);
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: var(--color-teal-dark);
 }
 
 body {
@@ -36,6 +44,8 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: var(--color-bg-main);
+  color: var(--color-text-main);
 }
 
 h1 {
@@ -50,19 +60,21 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--color-teal) ;
+  color: #fff;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: border-color 0.25s, background 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: var(--color-teal-dark);
+  background: var(--color-teal-dark);
 }
 
 .icon-wrapper {
   margin-bottom: 15px;
   font-size: 28px;
-  color: #4154f1;
-  background: rgba(65, 84, 241, 0.1);
+  color: var(--color-mint);
+  background: rgba(0, 150, 136, 0.1);
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -80,13 +92,13 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: var(--color-text-main);
+    background-color: var(--color-bg-main);
   }
   a:hover {
-    color: #747bff;
+    color: var(--color-teal-dark);
   }
   button {
-    background-color: #f9f9f9;
+    background-color: var(--color-teal);
   }
 }

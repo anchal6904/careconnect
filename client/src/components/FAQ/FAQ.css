@@ -1,6 +1,6 @@
 .faq-section {
   padding: 80px 0;
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  background: linear-gradient(135deg, #f0f9f9 0%, #e6f6f6 100%);
   position: relative;
 }
 
@@ -11,7 +11,7 @@
   left: 0;
   right: 0;
   height: 100px;
-  background: linear-gradient(to bottom, #e6eeff 0%, transparent 100%);
+  background: linear-gradient(to bottom, #d4f1f1 0%, transparent 100%);
 }
 
 .section-title {
@@ -24,7 +24,7 @@
 .section-title h2 {
   font-size: 32px;
   font-weight: 700;
-  color: #2c4964;
+  color: #0d6d6d;
   margin-bottom: 15px;
   position: relative;
   padding-bottom: 15px;
@@ -36,14 +36,14 @@
   display: block;
   width: 50px;
   height: 3px;
-  background: #1977cc;
+  background: #0d9d9d;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
 }
 
 .section-title p {
-  color: #666;
+  color: #4a6b6b;
   font-size: 16px;
 }
 
@@ -56,75 +56,68 @@
   border: none;
   border-radius: 12px !important;
   overflow: hidden;
-  transition: all 0.5s ease;
-  box-shadow: 0 5px 25px rgba(1, 41, 112, 0.08);
-  transform: translateY(0);
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 15px rgba(0, 90, 90, 0.08);
 }
 
 .faq-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 30px rgba(1, 41, 112, 0.12);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 20px rgba(0, 90, 90, 0.12);
 }
 
 .accordion-button {
   padding: 20px 25px;
   font-size: 16px;
   font-weight: 600;
-  color: #2c4964;
-  background: #fff;
+  color: #0d6d6d;    /* text color */
+  background: #ffffff !important; /* Changed to white */
   border: none;
-  position: relative;
-  transition: all 0.5s ease;
+  transition: all 0.3s ease;
 }
 
 .accordion-button:not(.collapsed) {
-  color: #1977cc;
-  background: #f8f9fa;
+  color: #ffffff;
+  background: #0d9d9d !important;
   box-shadow: none;
 }
 
+.accordion-button:focus {
+  box-shadow: none;
+  border-color: transparent;
+}
+
 .accordion-button::after {
-  transition: all 0.5s ease;
+  background-color: #ffffff00;  /* down arrow    */
+  color: white;
+  transition: all 0.3s ease;
 }
 
 .accordion-button:not(.collapsed)::after {
-  transform: rotate(180deg);
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%231977cc'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+  background-color: #02fcfc00;
+  color: white;
 }
 
 .faq-icon {
   margin-right: 15px;
   font-size: 18px;
-  color: #1977cc;
-  transition: all 0.5s ease;
+  color: #0d9d9d;
+  transition: all 0.3s ease;
 }
 
 .accordion-button:not(.collapsed) .faq-icon {
-  transform: rotate(360deg);
   color: #ffffff;
 }
-
 .accordion-body {
   padding: 20px 25px;
-  color: #444444;
+  color: #4a2d2d;
   line-height: 1.7;
   font-size: 15px;
-  background: #f8f9fa;
-  transform: translateY(0);
-  opacity: 1;
-  transition: all 0.5s ease;
+  background: #e6f6f6;
 }
 
+/* Animation */
 .accordion-collapse {
-  transition: all 0.5s ease-in-out;
-}
-
-.accordion-collapse.collapsing {
-  transition: all 0.5s ease-in-out;
-}
-
-.accordion-collapse.show {
-  animation: fadeInDown 0.5s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 @keyframes fadeInDown {
@@ -138,21 +131,7 @@
   }
 }
 
-/* Enhanced hover effects */
-.faq-item:hover .accordion-button:not(.collapsed) {
-  color: #ffffff;
-}
-
-.faq-item:hover .faq-icon {
-  transform: rotate(15deg);
-}
-
-/* Ripple effect on click */
-.accordion-button {
-  position: relative;
-  overflow: hidden;
-}
-
+/* Ripple effect */
 .accordion-button::before {
   content: '';
   position: absolute;
@@ -160,7 +139,7 @@
   left: 50%;
   width: 0;
   height: 0;
-  background: rgba(25, 119, 204, 0.1);
+  background: rgba(0, 255, 255, 0.1);
   border-radius: 50%;
   transform: translate(-50%, -50%);
   transition: all 0.5s ease;
@@ -190,4 +169,68 @@
     padding: 15px 20px;
     font-size: 14px;
   }
-} 
+}
+
+.accordion-button:hover {
+  color: #0d9d9d !important; /* Teal text on hover */
+  background: #ffffff !important; /* Keep white background on hover */
+  transform: translateX(5px); /* Slight right movement */
+  box-shadow: 0 2px 10px rgba(13, 157, 157, 0.2); /* Add subtle shadow */
+}
+
+/* Special effect for the question icon on hover */
+.accordion-button:hover .faq-icon {
+  transform: scale(1.2) rotate(10deg); /* Slightly enlarge and rotate */
+  color: #0d9d9d; /* Ensure icon stays teal */
+}
+
+/* Pulse animation for the entire FAQ item on hover */
+.faq-item:hover {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(13, 157, 157, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(13, 157, 157, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(13, 157, 157, 0);
+  }
+}
+
+/* Gradient border effect on hover */
+.faq-item {
+  position: relative;
+}
+
+.faq-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 12px;
+  padding: 2px;
+  background: linear-gradient(135deg, #0d9d9d 0%, #02c9c9 100%);
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  mask: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.faq-item:hover::before {
+  opacity: 1;
+}
+
+/* Remove the default transform on hover since we have new effects */
+.faq-item:hover {
+  transform: none;
+}

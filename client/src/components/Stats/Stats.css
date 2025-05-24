@@ -1,5 +1,5 @@
 .stats-section {
-  background-color: #f7fbff;
+  background-color: #edfbf8;
   padding: 60px 0;
 }
 
@@ -20,8 +20,8 @@
 .icon-wrapper {
   margin-bottom: 15px;
   font-size: 28px;
-  color: #4154f1;
-  background: rgba(65, 84, 241, 0.1);
+  color: rgb(35, 184, 172);
+  background: #68d7d056;
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -33,20 +33,20 @@
 }
 
 .stat-card:hover .icon-wrapper {
-  background: #4154f1;
+  background: #41f1e2;
   color: #fff;
 }
 
 .stat-card h2 {
   font-size: 32px;
   font-weight: 700;
-  color: #012970;
+  color: #016370;
   margin-bottom: 8px;
 }
 
 .stat-card p {
   font-size: 14px;
-  color: #4154f1;
+  color: var(--color-teal);
   margin: 0;
   font-weight: 500;
 }

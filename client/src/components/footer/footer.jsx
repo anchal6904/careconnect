@@ -3,9 +3,12 @@ import { Link } from 'react-router-dom';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { 
   FaTwitter, FaFacebook, FaInstagram, FaLinkedin, FaArrowUp, 
-  FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaAmbulance, FaClinicMedical,
+  FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaAmbulance, 
   FaUserMd, FaCalendarCheck, FaHeartbeat, FaHospital, FaClock, FaPhoneVolume
 } from 'react-icons/fa';
+import { FaUserDoctor } from "react-icons/fa6";
+import { RiLoginBoxFill } from "react-icons/ri";
+import { MdContactEmergency } from "react-icons/md";
 import "bootstrap/dist/css/bootstrap.min.css";
 import './Footer.css';
 
@@ -74,7 +77,7 @@ const Footer = () => {
             <div className="contact-info">
               <p><FaPhoneAlt className="icon" /> Emergency: <span className="emergency-number">911</span></p>
               <p><FaPhoneAlt className="icon" /> Helpline: +1 (555) 123-4567</p>
-              <p><FaEnvelope className="icon" /> care@CareConnect.com</p>
+              <p><FaEnvelope className="icon" /> care@careconnect.com</p>
             </div>
           </Col>
 
@@ -82,21 +85,21 @@ const Footer = () => {
             <h4>Quick Links</h4>
             <ul className="quick-links">
               <li><FaHeartbeat className="icon" /><Link to="/about">About Us</Link></li>
-              <li><FaUserMd className="icon" /><Link to="/find-doctor">Our Doctors</Link></li>
+              <li><FaUserDoctor className="icon" /><Link to="/doctors">Our Doctors</Link></li>
               <li><FaHospital className="icon" /><Link to="/departments">Departments</Link></li>
-              <li><FaCalendarCheck className="icon" /><Link to="/appointment">Book Appointment</Link></li>
-              <li><FaClinicMedical className="icon" /><Link to="/services">Our Services</Link></li>
+              <li><MdContactEmergency className="icon" /><Link to="/find-doctor">Nearby doctor</Link></li>
+              <li><RiLoginBoxFill className="icon" /><Link to="/login">Book Appointment</Link></li>
             </ul>
           </Col>
 
           <Col lg={3} md={6} className="footer-section" data-aos="fade-up" data-aos-delay="300">
             <h4>Our Services</h4>
             <ul className="services-links">
-              <li><Link to="/medical-services">Medical Services</Link></li>
-              <li><Link to="/health-packages">Health Packages</Link></li>
-              <li><Link to="/patient-resources">Patient Resources</Link></li>
-              <li><Link to="/insurance">Insurance & Billing</Link></li>
-              <li><Link to="/appointment">Book Appointment</Link></li>
+              <li><Link to="/">Medical Services</Link></li>
+              <li><Link to="/">Health Packages</Link></li>
+              <li><Link to="/">Patient Resources</Link></li>
+              <li><Link to="/">Insurance & Billing</Link></li>
+              <li><Link to="/">Login</Link></li>
             </ul>
           </Col>
 

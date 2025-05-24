@@ -15,7 +15,7 @@
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  color: #3498db;
+  color: var(--color-teal);
   font-size: 1.1rem;
   text-decoration: none;
   display: flex;
@@ -25,13 +25,13 @@
 }
 
 .back-button:hover {
-  color: #2980b9;
+  color: var(--color-teal-dark);
   transform: translateY(-50%) translateX(-5px);
 }
 
 .page-header h1 {
   font-size: 2.8rem;
-  color: #2c3e50;
+  color: var(--color-teal-dark);
   margin-bottom: 15px;
   font-weight: 700;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
@@ -58,7 +58,7 @@
 }
 
 .form-label {
-  color: #2c3e50;
+  color: var(--color-teal-dark);
   font-weight: 600;
   margin-bottom: 8px;
   display: flex;
@@ -67,7 +67,10 @@
 }
 
 .form-label svg {
-  color: #3498db;
+  color: var(--color-mint);
+  background: var(--color-teal);
+  border-radius: 50%;
+  padding: 4px;
 }
 
 .form-control,
@@ -81,8 +84,8 @@
 
 .form-control:focus,
 .form-select:focus {
-  border-color: #3498db;
-  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+  border-color: var(--color-teal);
+  box-shadow: 0 0 0 0.2rem rgba(0, 150, 136, 0.25);
 }
 
 .form-control:disabled,
@@ -97,7 +100,7 @@
 }
 
 .form-actions .btn-primary {
-  background: #3498db;
+  background: var(--color-teal);
   border: none;
   padding: 15px 40px;
   font-size: 1.2rem;
@@ -107,9 +110,8 @@
 }
 
 .form-actions .btn-primary:hover {
-  background: #2980b9;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+  background: var(--color-teal-dark);
+  box-shadow: 0 5px 15px rgba(0, 150, 136, 0.3);
 }
 
 .form-actions .btn-primary svg {

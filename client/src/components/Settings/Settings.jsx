@@ -119,7 +119,7 @@ const Settings = ({ userType = 'patient' }) => {
           <h2>Settings</h2>
         </Col>
         <Col xs="auto">
-          <Button variant="primary" onClick={saveSettings}>
+          <Button variant="success" onClick={saveSettings}>
             <FaSave className="me-2" />
             Save All Settings
           </Button>
@@ -301,7 +301,7 @@ const Settings = ({ userType = 'patient' }) => {
               </Col>
             </Row>
             <div className="text-end">
-              <Button type="submit" variant="primary">
+              <Button type="submit" variant="success">
                 Change Password
               </Button>
             </div>
