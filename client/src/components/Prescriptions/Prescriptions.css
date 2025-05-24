@@ -1,0 +1,22 @@
+.prescriptions-container {
+  padding: 1.5rem;
+}
+
+.prescriptions-container ul {
+  list-style: none;
+  padding: 0;
+}
+
+.prescriptions-container li {
+  background: #f8f9fa;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 8px;
+  border-left: 4px solid #4b6cb7;
+}
+
+@media (max-width: 768px) {
+  .prescriptions-container {
+    padding: 1rem;
+  }
+} 

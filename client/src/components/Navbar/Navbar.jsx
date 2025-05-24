@@ -100,7 +100,7 @@ const NavigationBar = () => {
               className={`nav-link nav-link-animated ${location.pathname === '/hospitals' ? 'active' : ''}`}
               onClick={handleLinkClick}
             >
-              Hospitals & Clinics
+              Doctors
             </Link>
             {/* <div 
               className="nav-dropdown"

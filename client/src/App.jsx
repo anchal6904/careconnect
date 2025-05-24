@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import 'react-toastify/dist/ReactToastify.css'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import { ToastContainer } from 'react-toastify'
+import { isAuthenticated } from './utils/auth'
 import HomePage from './pages/HomePage/HomePage'
 import AboutPage from './pages/AboutPage/AboutPage'
 import ServicesPage from './pages/ServicesPage/ServicesPage'
@@ -19,6 +22,7 @@ import HospitalsPage from './pages/HospitalsPage/HospitalsPage'
 import HospitalPage from './pages/HospitalPage/HospitalPage'
 import Footer from './components/Footer/Footer'
 import NavigationBar from './components/Navbar/Navbar'
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 import './App.css'
 
 // Component to handle scroll restoration
@@ -29,6 +33,31 @@ const ScrollToTop = () => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
+  return null;
+};
+
+// Component to handle navbar visibility
+const NavbarHandler = () => {
+  const location = useLocation();
+  const isAuth = isAuthenticated();
+  const isDashboardRoute = location.pathname.includes('doctor-dashboard') || 
+                          location.pathname.includes('patient-dashboard');
+
+  if (isDashboardRoute) {
+    return <DashboardNavbar />;
+  }
+  return <NavigationBar />;
+};
+
+// Component to handle footer visibility
+const FooterHandler = () => {
+  const location = useLocation();
+  const isDashboardRoute = location.pathname.includes('doctor-dashboard') || 
+                          location.pathname.includes('patient-dashboard');
+
+  if (!isDashboardRoute) {
+    return <Footer />;
+  }
   return null;
 };
 
@@ -45,33 +74,17 @@ function App() {
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
     }
-
-    // Handle initial route
-    const path = window.location.pathname;
-    if (path !== '/' && path !== '') {
-      window.history.replaceState({}, '', '/');
-    }
-
-    // Handle browser back/forward buttons
-    const handlePopState = () => {
-      const currentPath = window.location.pathname;
-      if (currentPath !== '/' && !currentPath.startsWith('/diseases/')) {
-        window.history.replaceState({}, '', '/');
-      }
-      window.scrollTo(0, 0);
-    };
-
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
   return (
     <Router>
       <div className="app">
         <ScrollToTop />
-        <NavigationBar />
+        <ToastContainer position="top-right" autoClose={3000} />
+        <NavbarHandler />
         <div className="content">
           <Routes>
+            {/* Public Routes */}
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/services" element={<ServicesPage />} />
@@ -86,8 +99,28 @@ function App() {
             <Route path="/diseases/:slug" element={<DiseasePage />} />
             <Route path="/hospitals" element={<HospitalsPage />} />
             <Route path="/hospital/:id" element={<HospitalPage />} />
+
+            {/* Protected Doctor Routes */}
+            <Route
+              path="/doctor-dashboard/*"
+              element={
+                <ProtectedRoute allowedRole="doctor">
+                  <DoctorDashboard />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* Protected Patient Routes */}
+            <Route
+              path="/patient-dashboard/*"
+              element={
+                <ProtectedRoute allowedRole="patient">
+                  <PatientDashboard />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
-          <Footer />
+          <FooterHandler />
         </div>
       </div>
     </Router>

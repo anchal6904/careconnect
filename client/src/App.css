@@ -1,3 +1,36 @@
+/* Global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  color: #2c3e50;
+}
+
+/* Hero section */
+.hero {
+  padding: 4rem 0;
+  background-color: #f8f9fa;
+  margin-top: 72px; /* Height of navbar */
+}
+
+.hero-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .hero {
+    padding: 2rem 0;
+  }
+}
+
 /* Add global styles here if needed */
 * {
   margin: 0;

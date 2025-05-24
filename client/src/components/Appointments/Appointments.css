@@ -1,0 +1,36 @@
+.appointments-container {
+  padding: 1.5rem;
+}
+
+.nav-tabs {
+  border-bottom: 2px solid #e9ecef;
+}
+
+.nav-tabs .nav-link {
+  border: none;
+  color: #6c757d;
+  font-weight: 500;
+  padding: 1rem 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.nav-tabs .nav-link:hover {
+  border: none;
+  color: #4b6cb7;
+}
+
+.nav-tabs .nav-link.active {
+  border: none;
+  color: #4b6cb7;
+  border-bottom: 2px solid #4b6cb7;
+}
+
+@media (max-width: 768px) {
+  .appointments-container {
+    padding: 1rem;
+  }
+
+  .nav-tabs .nav-link {
+    padding: 0.75rem 1rem;
+  }
+} 
