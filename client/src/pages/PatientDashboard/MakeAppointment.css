@@ -1,0 +1,74 @@
+.make-appointment-container {
+  padding: 2rem 1rem;
+}
+
+.appointment-form-card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.appointment-form-card .card-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #eee;
+  padding: 1.5rem;
+}
+
+.appointment-form-card .card-header h2 {
+  margin: 0;
+  color: #333;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.appointment-form-card .card-body {
+  padding: 2rem;
+}
+
+.form-label {
+  font-weight: 500;
+  color: #555;
+}
+
+.form-control,
+.form-select {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0.75rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.form-control:disabled,
+.form-select:disabled {
+  background-color: #f8f9fa;
+  cursor: not-allowed;
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.btn-primary {
+  padding: 0.75rem 2rem;
+  font-weight: 500;
+}
+
+.btn-primary:disabled {
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .make-appointment-container {
+    padding: 1rem;
+  }
+
+  .appointment-form-card .card-body {
+    padding: 1.5rem;
+  }
+} 

@@ -21,6 +21,7 @@ import DiseasePage from './pages/DiseasePage/DiseasePage'
 import HospitalsPage from './pages/HospitalsPage/HospitalsPage'
 import HospitalPage from './pages/HospitalPage/HospitalPage'
 import DoctorDashboard from './pages/DoctorDashboard/DoctorDashboard'
+import PatientDashboard from './pages/PatientDashboard/PatientDashboard'
 import Footer from './components/Footer/Footer'
 import NavigationBar from './components/Navbar/Navbar'
 import DashboardNavbar from './components/DashboardNavbar/DashboardNavbar'
@@ -117,6 +118,7 @@ function App() {
               path="/patient-dashboard/*"
               element={
                 <ProtectedRoute allowedRole="patient">
+                  <PatientDashboard />
                 </ProtectedRoute>
               }
             />
