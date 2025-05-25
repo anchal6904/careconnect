@@ -9,6 +9,16 @@ CareConnect Website is a responsive and accessible web interface developed using
 ## 🔗 Live Demo
 [Click here to view](https://drive.google.com/file/d/1QCzxCvaUGf505Rs81oTXJiDp1NMRR2tN/view?usp=drive_link)
 
+## 🔗 Screenshots
+
+## 🔗Home page
+![Screenshot 2025-05-25 211730](https://github.com/user-attachments/assets/d702757e-6ea1-4bab-bd70-f3b42cf484ea)
+![Screenshot 2025-05-25 211811](https://github.com/user-attachments/assets/cac93a4d-0af6-4e4e-b678-2e411a2c7851)
+
+## 🔗About page
+![Screenshot 2025-05-25 211852](https://github.com/user-attachments/assets/97f1531b-39cb-451c-88d0-8f8cfe4825db)
+
+
 ✨ Features
 🧑‍⚕️ For Patients
 Browse and search for doctors by name, location, or specialty
