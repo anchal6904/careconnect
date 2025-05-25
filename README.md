@@ -92,6 +92,7 @@ Supabase (PostgreSQL) – Database
 
 ## 🧩 Folder Structure
 
+```bash
 careconnect_website/
 ├── public/
 ├── src/
@@ -101,6 +102,8 @@ careconnect_website/
 │   ├── utils/            # Helper functions and constants
 │   ├── App.jsx           # Main application component
 │   └── main.jsx          # Vite entry point
+```
+
 
 ## 📌 Current Pages
 Home Page
@@ -129,5 +132,5 @@ Sync with electronic health records (EHR)
 Support multiple languages and accessibility features
 
 ## 👩‍💻 Developed By
- @anchal6904
- @Adityakumar09
+[@anchal6904](https://github.com/anchal6904)
+[@Adityakumar09](https://github.com/adityakumar09)
