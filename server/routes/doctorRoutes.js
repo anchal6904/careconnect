@@ -466,6 +466,52 @@ router.get('/doctor/:id', async (req, res) => {
       error: error.message
     });
   }
+}); 
+
+router.get('/doctor/visible', async (req, res) => {
+  try {
+    // Fetch doctors where is_visible is true
+    const { data: doctorsData, error: doctorsError } = await supabase
+      .from('doctors')
+      .select(`
+        id,
+        name,
+        specialty,
+        experience
+      `)
+      .eq('is_visible', true);
+
+    if (doctorsError) {
+      console.error('Error fetching visible doctors:', doctorsError);
+      return res.status(500).json({
+        success: false,
+        message: 'Error fetching visible doctors',
+        error: doctorsError.message
+      });
+    }
+
+    if (!doctorsData || doctorsData.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'No visible doctors found'
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      data: doctorsData
+    });
+  } catch (error) {
+    console.error('Server error:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Server error',
+      error: error.message
+    });
+  }
 });
+
+
+
 
 export default router;

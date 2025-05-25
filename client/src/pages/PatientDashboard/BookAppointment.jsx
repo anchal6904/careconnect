@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Form, Button, Row, Col, Alert } from 'react-bootstrap';
-import { FaCalendarAlt, FaClock, FaUserMd, FaHospital } from 'react-icons/fa';
+import {
+  Card, Form, Button, Row, Col, Alert, Spinner
+} from 'react-bootstrap';
+import {
+  FaCalendarAlt, FaClock, FaUserMd, FaHospital
+} from 'react-icons/fa';
+import { fetchDoctorsVisible } from '../../api/api';
 import './BookAppointment.css';
 
 const BookAppointment = () => {
@@ -16,28 +21,11 @@ const BookAppointment = () => {
 
   const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
   const [previousDoctors, setPreviousDoctors] = useState([]);
+  const [doctors, setDoctors] = useState([]);
+  const [departments, setDepartments] = useState([]);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-
-  // Mock data - Replace with actual API calls
-  const departments = [
-    { id: 1, name: 'Cardiology' },
-    { id: 2, name: 'Neurology' },
-    { id: 3, name: 'Orthopedics' },
-    { id: 4, name: 'Pediatrics' }
-  ];
-
-  const doctors = {
-    1: [
-      { id: 1, name: 'Dr. John Smith', specialization: 'Cardiologist' },
-      { id: 2, name: 'Dr. Sarah Johnson', specialization: 'Cardiologist' }
-    ],
-    2: [
-      { id: 3, name: 'Dr. Michael Brown', specialization: 'Neurologist' },
-      { id: 4, name: 'Dr. Emily Davis', specialization: 'Neurologist' }
-    ],
-    // Add more departments and doctors
-  };
+  const [isLoading, setIsLoading] = useState(true);
 
   const timeSlots = [
     '09:00 AM', '09:30 AM', '10:00 AM', '10:30 AM',
@@ -46,7 +34,36 @@ const BookAppointment = () => {
   ];
 
   useEffect(() => {
-    // Mock previous doctors data - Replace with actual API call
+    const loadDoctors = async () => {
+      try {
+        const response = await fetchDoctorsVisible();
+        if (response.data.success) {
+          const visibleDoctors = response.data.data;
+          setDoctors(visibleDoctors);
+
+          const uniqueDepartments = Array.from(
+            new Set(visibleDoctors.map(doc => doc.specialty))
+          ).map(specialty => ({
+            id: specialty,
+            name: specialty.charAt(0).toUpperCase() + specialty.slice(1)
+          }));
+
+          setDepartments(uniqueDepartments);
+        } else {
+          setError('Failed to fetch doctors.');
+        }
+      } catch (err) {
+        setError('Error loading doctors.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadDoctors();
+  }, []);
+
+  useEffect(() => {
+    // Replace this with real API in future
     setPreviousDoctors([
       { id: 1, name: 'Dr. John Smith', department: 'Cardiology', lastVisit: '2024-02-15' },
       { id: 3, name: 'Dr. Michael Brown', department: 'Neurology', lastVisit: '2024-01-20' }
@@ -55,44 +72,47 @@ const BookAppointment = () => {
 
   const handleInputChange = (e) => {
     const { name, value, checked } = e.target;
+    const newValue = name === 'isFollowUp' ? checked : value;
+
     setFormData(prev => ({
       ...prev,
-      [name]: name === 'isFollowUp' ? checked : value
+      [name]: newValue,
+      ...(name === 'department' ? { doctor: '' } : {})
     }));
-
-    if (name === 'department') {
-      setFormData(prev => ({ ...prev, doctor: '' }));
-    }
   };
 
   const handleDateChange = (e) => {
-    const selectedDate = e.target.value;
+    const selected = new Date(e.target.value);
     const today = new Date();
+    today.setHours(0, 0, 0, 0);
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
 
-    const selectedDateObj = new Date(selectedDate);
-    if (selectedDateObj < today || selectedDateObj > tomorrow) {
-      setError('Please select today or tomorrow\'s date');
+    if (selected < today || selected > tomorrow) {
+      setError('Please select today or tomorrow only.');
       return;
     }
 
-    setFormData(prev => ({ ...prev, date: selectedDate }));
     setError('');
-    // Mock available time slots - Replace with actual API call
-    setAvailableTimeSlots(timeSlots.filter(slot => Math.random() > 0.3));
+    setFormData(prev => ({ ...prev, date: e.target.value }));
+
+    const available = timeSlots.filter(() => Math.random() > 0.3);
+    setAvailableTimeSlots(available);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formData.department || !formData.doctor || !formData.date || !formData.timeSlot) {
-      setError('Please fill in all required fields');
+
+    const { department, doctor, date, timeSlot } = formData;
+    if (!department || !doctor || !date || !timeSlot) {
+      setError('All required fields must be filled.');
       return;
     }
 
-    // Mock API call
-    console.log('Booking appointment:', formData);
+    console.log('Booking Data:', formData);
     setSuccess('Appointment booked successfully!');
+    setError('');
+
     setFormData({
       department: '',
       doctor: '',
@@ -105,21 +125,34 @@ const BookAppointment = () => {
   };
 
   const handleFollowUp = (doctor) => {
-    setFormData(prev => ({
-      ...prev,
+    setFormData({
       department: doctor.department,
       doctor: doctor.id.toString(),
+      date: '',
+      timeSlot: '',
+      reason: '',
       isFollowUp: true,
       previousDoctor: doctor.id.toString()
-    }));
+    });
   };
+
+  const getDoctorsForDepartment = (dept) =>
+    doctors.filter(doc => doc.specialty.toLowerCase() === dept.toLowerCase());
+
+  if (isLoading) {
+    return (
+      <div className="text-center p-5">
+        <Spinner animation="border" />
+      </div>
+    );
+  }
 
   return (
     <div className="book-appointment-container">
       <Card className="book-appointment-card">
         <Card.Body>
           <h3 className="text-center mb-4">Book an Appointment</h3>
-          
+
           {error && <Alert variant="danger">{error}</Alert>}
           {success && <Alert variant="success">{success}</Alert>}
 
@@ -153,8 +186,10 @@ const BookAppointment = () => {
                     disabled={!formData.department}
                   >
                     <option value="">Select Doctor</option>
-                    {formData.department && doctors[formData.department]?.map(doc => (
-                      <option key={doc.id} value={doc.id}>{doc.name}</option>
+                    {getDoctorsForDepartment(formData.department).map(doc => (
+                      <option key={doc.id} value={doc.id}>
+                        {doc.name} - ₹{doc.consultation_fee || 500}
+                      </option>
                     ))}
                   </Form.Select>
                 </Form.Group>
@@ -202,7 +237,7 @@ const BookAppointment = () => {
                 name="reason"
                 value={formData.reason}
                 onChange={handleInputChange}
-                placeholder="Please describe your symptoms or reason for visit"
+                placeholder="Describe your symptoms or reason"
               />
             </Form.Group>
 
@@ -228,16 +263,16 @@ const BookAppointment = () => {
           <Card.Body>
             <h4 className="mb-3">Previous Doctors</h4>
             <div className="previous-doctors-list">
-              {previousDoctors.map(doctor => (
-                <div key={doctor.id} className="previous-doctor-item">
+              {previousDoctors.map(doc => (
+                <div key={doc.id} className="previous-doctor-item">
                   <div className="doctor-info">
-                    <h5>{doctor.name}</h5>
-                    <p className="text-muted">{doctor.department}</p>
-                    <p className="text-muted">Last Visit: {doctor.lastVisit}</p>
+                    <h5>{doc.name}</h5>
+                    <p className="text-muted">{doc.department}</p>
+                    <p className="text-muted">Last Visit: {doc.lastVisit}</p>
                   </div>
                   <Button
                     variant="outline-primary"
-                    onClick={() => handleFollowUp(doctor)}
+                    onClick={() => handleFollowUp(doc)}
                   >
                     Book Follow-up
                   </Button>
@@ -251,4 +286,4 @@ const BookAppointment = () => {
   );
 };
 
-export default BookAppointment; 
+export default BookAppointment;

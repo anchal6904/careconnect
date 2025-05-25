@@ -1,5 +1,8 @@
 import { supabase } from '../backend/config/supabaseClient';
-import { patientSignup as apiSignup, patientLogin as apiLogin } from '../api/api';
+import { 
+  patientSignup as apiSignup, 
+  patientLogin as apiLogin,
+} from '../api/api';
 
 export const signup = async (formData) => {
   try {
@@ -41,6 +44,7 @@ export const login = async (email, password) => {
       localStorage.setItem('userRole', 'patient');
       localStorage.setItem('isAuthenticated', 'true');
       localStorage.setItem('username', userData.name || userData.email);
+      localStorage.setItem('userId', userData.id);
       
       if (response.data.data.session?.access_token) {
         localStorage.setItem('token', response.data.data.session.access_token);
@@ -73,6 +77,7 @@ export const logout = async () => {
     localStorage.removeItem('isAuthenticated');
     localStorage.removeItem('username');
     localStorage.removeItem('token');
+    localStorage.removeItem('userId');
     return { success: true };
   } catch (error) {
     return { success: false, message: error.message };
