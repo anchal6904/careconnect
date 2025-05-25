@@ -53,8 +53,8 @@ CareConnect Website is a responsive and accessible web interface developed using
 ![Screenshot 2025-05-25 212843](https://github.com/user-attachments/assets/78eed755-7763-4add-bf8b-9e3334fd09d2)
 
 
-✨ Features
-🧑‍⚕️ For Patients
+## ✨ Features
+## 🧑‍⚕️ For Patients
 Browse and search for doctors by name, location, or specialty
 
 View doctor profiles and book appointments
@@ -63,7 +63,7 @@ Track booking history and upcoming visits
 
 Receive appointment status updates
 
-👨‍⚕️ For Doctors
+## 👨‍⚕️ For Doctors
 Login to view and manage appointments
 
 Accept, decline, or mark appointments as complete
@@ -72,7 +72,7 @@ View patient details and visit records
 
 Set availability and consultation charges
 
-💻 Tech Stack
+## 💻 Tech Stack
 Frontend (Website)
 React – Component-based architecture
 
@@ -90,7 +90,7 @@ Node.js + Express – RESTful API
 Supabase (PostgreSQL) – Database
 
 
-🧩 Folder Structure
+## 🧩 Folder Structure
 
 careconnect_website/
 ├── public/
@@ -102,7 +102,7 @@ careconnect_website/
 │   ├── App.jsx           # Main application component
 │   └── main.jsx          # Vite entry point
 
-📌 Current Pages
+## 📌 Current Pages
 Home Page
 
 About Page
@@ -117,7 +117,7 @@ Login/Signup (Patient & Doctor)
 
 Doctor Dashboard
 
-📋 Future Scope
+## 📋 Future Scope
 Add video consultation module
 
 Enable direct chat between doctor and patient
@@ -128,6 +128,6 @@ Sync with electronic health records (EHR)
 
 Support multiple languages and accessibility features
 
-👩‍💻 Developed By
+## 👩‍💻 Developed By
  @anchal6904
  @Adityakumar09
