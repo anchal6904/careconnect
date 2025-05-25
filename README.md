@@ -1,4 +1,4 @@
-CareConnect
+# CareConnect
 CareConnect Website is a responsive and accessible web interface developed using React (Vite). It complements the CareConnect mobile application by offering users—both patients and doctors—a smooth experience across devices for managing healthcare needs, booking appointments, and exploring services. This version was crafted with an emphasis on performance, usability, and seamless integration with backend services.
 🛠 Developed as part of the Veersa Hackathon.
 
