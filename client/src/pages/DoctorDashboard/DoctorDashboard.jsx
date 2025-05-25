@@ -2,14 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Container, Row, Col, Card, Button, Badge } from 'react-bootstrap';
 import { patients, appointments, prescriptions, notifications } from '../../data/dummyData';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import DoctorSchedule from '../../components/DoctorSchedule/DoctorSchedule';
 import DoctorReports from '../../components/DoctorReports/DoctorReports';
 import DoctorProfile from '../../components/DoctorProfile/DoctorProfile';
 import Settings from '../../components/Settings/Settings';
 import DashboardStats from '../../components/DashboardStats/DashboardStats';
 import DataTable from '../../components/DataTable/DataTable';
+import { fetchDoctorById } from '../../api/api';
+import { updateProfile, updateSchedule } from '../../utils/doctorAuth';
 import './DoctorDashboard.css';
+import { toast } from 'react-toastify';
 
 const DoctorDashboard = () => {
   const [doctorAppointments, setDoctorAppointments] = useState([]);
@@ -17,28 +20,45 @@ const DoctorDashboard = () => {
   const [doctorPatients, setDoctorPatients] = useState([]);
   const [doctorData, setDoctorData] = useState(null);
   const [unreadNotifications, setUnreadNotifications] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
   const location = useLocation();
+  const navigate = useNavigate(); 
 
   useEffect(() => {
-    // Get doctor data (assuming doctor ID 1 for demo)
-    const doctor = {
-      id: 1,
-      name: 'Dr. John Smith',
-      email: 'john.smith@hospital.com',
-      phone: '+1234567890',
-      specialization: 'Cardiology',
-      experience: '15 years',
-      education: 'MD, Cardiology',
-      certifications: 'Board Certified Cardiologist',
-      bio: 'Experienced cardiologist with expertise in preventive cardiology and heart disease management.',
-      address: '123 Medical Center Dr, Suite 456',
-      emergencyContact: {
-        name: 'Sarah Smith',
-        relationship: 'Spouse',
-        phone: '+1987654321'
+    const fetchDoctorData = async () => {
+      try {
+        // Get doctor ID from localStorage
+        const doctorId = localStorage.getItem('id');
+        const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+        
+        if (!doctorId || !isAuthenticated) {
+          console.error('Doctor not authenticated');
+          toast.error('Please login to access the dashboard');
+          navigate('/doctor-login');
+          return;
+        }
+
+        const response = await fetchDoctorById(doctorId);
+        console.log('Initial doctor data fetch response:', response);
+        
+        if (response.data.success) {
+          console.log('Setting initial doctor data:', response.data.data);
+          setDoctorData(response.data.data);
+        } else {
+          console.error('Failed to fetch doctor data:', response.data.message);
+          toast.error('Failed to load doctor data');
+          navigate('/doctor-login');
+        }
+      } catch (error) {
+        console.error('Error fetching doctor data:', error);
+        toast.error('Error loading doctor data');
+        navigate('/doctor-login');
+      } finally {
+        setIsLoading(false);
       }
     };
-    setDoctorData(doctor);
+
+    fetchDoctorData();
 
     // Filter appointments for the current doctor
     const filteredAppointments = appointments.filter(apt => apt.doctorId === 1);
@@ -56,17 +76,132 @@ const DoctorDashboard = () => {
     // Count unread notifications
     const unread = notifications.filter(notification => !notification.read).length;
     setUnreadNotifications(unread);
-  }, []);
+  }, [navigate]);
 
-  const handleScheduleUpdate = (updateData) => {
-    console.log('Schedule update:', updateData);
-    // Here you would typically make an API call to update the schedule
+  const handleScheduleUpdate = async (updateData) => {
+    try {
+      const doctorId = localStorage.getItem('id');
+      if (!doctorId) {
+        toast.error('Doctor ID not found');
+        return;
+      }
+
+      // Convert the schedule data to available_days and available_hours format
+      const availableDays = [];
+      const availableHours = [];
+
+      Object.entries(updateData).forEach(([date, schedule]) => {
+        if (!schedule.isHoliday && schedule.timeRanges.length > 0) {
+          const dayOfWeek = new Date(date).toLocaleDateString('en-US', { weekday: 'long' });
+          availableDays.push(dayOfWeek);
+          
+          schedule.timeRanges.forEach(range => {
+            const timeRange = `${range.startTime}-${range.endTime}`;
+            if (!availableHours.includes(timeRange)) {
+              availableHours.push(timeRange);
+            }
+          });
+        }
+      });
+
+      // Create the update payload with all required fields
+      const updatePayload = {
+        available_days: availableDays.join(','),
+        available_hours: availableHours.join(','),
+        // Include existing profile data
+        bio: doctorData?.bio,
+        location_link: doctorData?.location_link,
+        consultation_fee: doctorData?.consultation_fee
+      };
+
+      // Debug logs
+      console.log('Current doctor data:', doctorData);
+      console.log('Schedule update data:', updateData);
+      console.log('Final schedule payload:', updatePayload);
+
+      const result = await updateSchedule(doctorId, updatePayload);
+      
+      // Debug log
+      console.log('Server response:', result);
+      
+      if (result.success) {
+        // Debug log
+        console.log('Server response data:', result.data);
+        
+        setDoctorData(prev => {
+          const newState = {
+            ...prev,
+            available_days: updatePayload.available_days,
+            available_hours: updatePayload.available_hours,
+            onboarding_complete: result.data.onboarding_complete,
+            is_visible: result.data.is_visible
+          };
+          console.log('New doctor state:', newState);
+          return newState;
+        });
+        toast.success('Schedule updated successfully');
+      } else {
+        toast.error(result.message || 'Failed to update schedule');
+      }
+    } catch (error) {
+      console.error('Error updating schedule:', error);
+      toast.error('Failed to update schedule: ' + (error.message || 'Unknown error'));
+    }
   };
 
-  const handleProfileUpdate = (updatedData) => {
-    console.log('Profile update:', updatedData);
-    // Here you would typically make an API call to update the profile
-    setDoctorData(prev => ({ ...prev, ...updatedData }));
+  const handleProfileUpdate = async (updatedData) => {
+    try {
+      const doctorId = localStorage.getItem('id');
+      if (!doctorId) {
+        toast.error('Doctor ID not found');
+        return;
+      }
+
+      // Create the update payload with all required fields
+      const updatePayload = {
+        bio: updatedData.bio,
+        location_link: updatedData.location_link,
+        consultation_fee: updatedData.consultation_fee ? Number(updatedData.consultation_fee) : undefined,
+        // Include existing schedule data if available
+        available_days: doctorData?.available_days,
+        available_hours: doctorData?.available_hours
+      };
+
+      // Debug logs
+      console.log('Current doctor data:', doctorData);
+      console.log('Updated data received:', updatedData);
+      console.log('Final update payload:', updatePayload);
+
+      const result = await updateProfile(doctorId, updatePayload);
+      
+      // Debug log
+      console.log('Server response:', result);
+      
+      if (result.success) {
+        // Debug log
+        console.log('Server response data:', result.data);
+        
+        // Update local state after successful API call
+        setDoctorData(prev => {
+          const newState = {
+            ...prev,
+            bio: updatedData.bio,
+            location_link: updatedData.location_link,
+            consultation_fee: updatedData.consultation_fee,
+            onboarding_complete: result.data.onboarding_complete,
+            is_visible: result.data.is_visible
+          };
+          console.log('New doctor state:', newState);
+          return newState;
+        });
+        toast.success('Profile updated successfully');
+      } else {
+        toast.error(result.message || 'Failed to update profile');
+      }
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      toast.error('Failed to update profile: ' + (error.message || 'Unknown error'));
+    }
   };
 
   const renderDashboard = () => {
@@ -277,11 +412,29 @@ const DoctorDashboard = () => {
       <div className="dashboard-content">
         <Routes>
           <Route path="/" element={renderDashboard()} />
-          <Route path="/schedule" element={<DoctorSchedule doctorId={1} onScheduleUpdate={handleScheduleUpdate} />} />
+          <Route 
+            path="/schedule" 
+            element={
+              <DoctorSchedule 
+                doctorId={doctorData?.id} 
+                onScheduleUpdate={handleScheduleUpdate}
+                doctorData={doctorData}
+              />
+            } 
+          />
           <Route path="/appointments" element={renderAppointments()} />
           <Route path="/patients" element={renderPatients()} />
-          <Route path="/reports" element={<DoctorReports doctorId={1} />} />
-          <Route path="/profile" element={<DoctorProfile doctorData={doctorData} onUpdateProfile={handleProfileUpdate} />} />
+          <Route path="/reports" element={<DoctorReports doctorId={doctorData?.id} />} />
+          <Route 
+            path="/profile" 
+            element={
+              isLoading ? (
+                <div className="text-center p-5">Loading profile...</div>
+              ) : (
+                <DoctorProfile doctorData={doctorData} onUpdateProfile={handleProfileUpdate} />
+              )
+            } 
+          />
           <Route path="/settings" element={<Settings />} />
         </Routes>
       </div>

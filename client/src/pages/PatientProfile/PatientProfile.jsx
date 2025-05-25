@@ -3,7 +3,7 @@ import { Container, Form, Button, Card, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { supabase } from '../../../server/supabaseClient';
-import { getCurrentUser } from '../../utils/auth';
+import { getCurrentUser } from '../../utils/patientAuth.js';
 import './PatientProfile.css';
 
 const PatientProfile = () => {

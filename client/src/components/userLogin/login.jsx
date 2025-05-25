@@ -4,6 +4,7 @@ import { Container, Form, Button, Card } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import userform2cc from '../../assets/userform2 cc.png';
 import { FaUser, FaEnvelope, FaLock, FaGoogle, FaFacebookF, FaTwitter } from 'react-icons/fa';
+import { login } from '../../utils/patientAuth';
 import './Login.css';
 
 const PatientLogin = () => {
@@ -11,6 +12,7 @@ const PatientLogin = () => {
     email: '',
     password: ''
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -22,32 +24,25 @@ const PatientLogin = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     
-    // Hardcoded credentials
-    const validCredentials = {
-      email: 'patient@example.com',
-      password: 'patient123'
-    };
-
-    if (formData.email === validCredentials.email && formData.password === validCredentials.password) {
-      // Store user data in localStorage
-      const userData = {
-        id: '1',
-        email: formData.email,
-        name: 'John Doe',
-        phone: '1234567890',
-        role: 'patient'
-      };
-      localStorage.setItem('user', JSON.stringify(userData));
-      localStorage.setItem('userRole', 'patient');
-      localStorage.setItem('username', userData.name);
-
-      toast.success('Login successful!');
-      navigate('/patient-dashboard');
-    } else {
-      toast.error('Invalid credentials');
+    try {
+      const result = await login(formData.email, formData.password);
+      console.log('Login result:', result); // Debug log
+      
+      if (result.success) {
+        toast.success('Login successful!');
+        navigate('/patient-dashboard');
+      } else {
+        toast.error(result.message || 'Login failed');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      toast.error(error.message || 'An error occurred during login');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -93,9 +88,18 @@ const PatientLogin = () => {
                 />
               </Form.Group>
 
-              <Button variant="primary" type="submit" className="w-100 mb-3">
-                Login
+              <Button 
+                variant="primary" 
+                type="submit" 
+                className="w-100 mb-3"
+                disabled={isLoading}
+              >
+                {isLoading ? 'Logging in...' : 'Login'}
               </Button>
+
+              <div className="text-center mt-3">
+                <Link to="/forgot-password">Forgot Password?</Link>
+              </div>
 
               <div className="divider">
                 <span>or login with</span>

@@ -1,18 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, InputGroup, Button } from 'react-bootstrap';
 import { FaSearch, FaStar, FaUserCircle, FaMapMarkerAlt } from 'react-icons/fa';
-import doctorsData from '../../assets/doctors_data.json';
+// import doctorsData from '../../assets/doctors_data.json';
 import './DoctorsPage.css';
-
-const specialties = Array.from(new Set(doctorsData.map(doc => doc.specialty)));
+import { fetchDoctors } from '../../api/api';
 
 const DoctorsPage = () => {
+  const [doctorsData, setDoctorsData] = useState([]);
+  const [specialties, setSpecialties] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedSpecialty, setSelectedSpecialty] = useState('');
   const [showNearby, setShowNearby] = useState(false);
   const [userLocation, setUserLocation] = useState(null);
   const [sortedDoctors, setSortedDoctors] = useState([]);
   const [locationError, setLocationError] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const getDoctors = async () => {
+      try {
+        const response = await fetchDoctors();
+        if (response.data.success) {
+          const doctors = response.data.data;
+          setDoctorsData(doctors);
+          // Extract unique specialties
+          const uniqueSpecialties = Array.from(new Set(doctors.map(doc => doc.specialty)));
+          setSpecialties(uniqueSpecialties);
+        } else {
+          console.error('Failed to fetch doctors:', response.data.message);
+        }
+      } catch (error) {
+        console.error('Error fetching doctors:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    getDoctors();
+  }, []);
 
   // Helper to calculate distance between two lat/lng points (Haversine formula)
   function getDistance(lat1, lon1, lat2, lon2) {
@@ -154,41 +179,65 @@ const DoctorsPage = () => {
         </div>
         {locationError && <div className="location-error">{locationError}</div>}
         <Row className="doctors-grid">
-          {doctorsToShow.map((doctor) => (
-            <Col key={doctor.id} lg={4} md={6} sm={12} xs={12} className="mb-4">
-              <div className="doctor-card doctor-card-horizontal wider">
-                <div className="doctor-card-content">
-                  <div className="doctor-profile-image">
-                    {doctor.image ? (
-                      <img src={doctor.image} alt={doctor.name} className="profile-img-circle" />
-                    ) : (
-                      <div className="profile-img-placeholder">
-                        {doctor.name.replace('Dr. ', '').charAt(0)}
-                      </div>
-                    )}
-                  </div>
-                  <div className="doctor-details-right">
-                    <h5 className="doctor-name">{doctor.name}</h5>
-                    <div className="doctor-department">{doctor.specialty.charAt(0).toUpperCase() + doctor.specialty.slice(1)}</div>
-                    <div className="doctor-experience">{doctor.experience} years experience</div>
-                    <div className="doctor-rating">
-                      <FaStar className="star-icon" /> {getRating(doctor)}
-                      {showNearby && doctor.distance !== undefined && (
-                        <span className="doctor-distance">
-                          <FaMapMarkerAlt className="me-1" />
-                          {formatDistance(doctor.distance)}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-                <div className="doctor-card-footer-horizontal">
-                  <div className="consultation-fee">Consultation Fee: <span>{getConsultationFee(doctor)}</span></div>
-                  <Button className="book-btn">Book</Button>
-                </div>
+          {isLoading ? (
+            <Col xs={12} className="text-center py-5">
+              <div className="loading-spinner">Loading doctors...</div>
+            </Col>
+          ) : doctorsToShow.length === 0 ? (
+            <Col xs={12} className="text-center py-5">
+              <div className="no-results">
+                <FaUserCircle size={48} className="mb-3 text-muted" />
+                <h4>No Doctors Found</h4>
+                <p className="text-muted">
+                  {showNearby 
+                    ? "No doctors available in your area. Try expanding your search radius." 
+                    : "No doctors match your search criteria. Try adjusting your filters."}
+                </p>
               </div>
             </Col>
-          ))}
+          ) : (
+            doctorsToShow.map((doctor) => (
+              <Col key={doctor.id} lg={4} md={6} sm={12} xs={12} className="mb-4">
+                <div className="doctor-card doctor-card-horizontal wider">
+                  <div className="doctor-card-content">
+                    <div className="doctor-profile-image">
+                      {doctor.image ? (
+                        <img src={doctor.image} alt={doctor.name} className="profile-img-circle" />
+                      ) : (
+                        <div className="profile-img-placeholder">
+                          {doctor.name.replace('Dr. ', '').charAt(0)}
+                        </div>
+                      )}
+                    </div>
+                    <div className="doctor-details-right">
+                      <h5 className="doctor-name">{doctor.name}</h5>
+                      <div className="doctor-department">
+                        {doctor.specialty ? doctor.specialty.charAt(0).toUpperCase() + doctor.specialty.slice(1) : 'General'}
+                      </div>
+                      <div className="doctor-experience">
+                        {doctor.experience ? `${doctor.experience} years experience` : 'Experience not specified'}
+                      </div>
+                      <div className="doctor-rating">
+                        <FaStar className="star-icon" /> {doctor.rating || "New"}
+                        {showNearby && doctor.distance !== undefined && (
+                          <span className="doctor-distance">
+                            <FaMapMarkerAlt className="me-1" />
+                            {formatDistance(doctor.distance)}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="doctor-card-footer-horizontal">
+                    <div className="consultation-fee">
+                      Consultation Fee: <span>₹{doctor.consultation_fee || "Not specified"}</span>
+                    </div>
+                    <Button className="book-btn">Book</Button>
+                  </div>
+                </div>
+              </Col>
+            ))
+          )}
         </Row>
       </Container>
     </div>

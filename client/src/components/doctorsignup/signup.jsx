@@ -4,18 +4,20 @@ import { Container, Form, Button, Card } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import userformcc from '../../assets/userform cc.jpg';
 import './Signup.css';
+import { doctorSignup } from '../../utils/doctorAuth.js'; 
 
 const DoctorSignup = () => {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    name: '',
     email: '',
-    phone: '',
-    specialization: '',
-    licenseNumber: '',
+    phone_number: '',
+    specialty: '',
+    qualifications: '',
+    experience: '',
     password: '',
     confirmPassword: ''
   });
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -27,21 +29,42 @@ const DoctorSignup = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setIsLoading(true);
 
-    // Basic validation
-    if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
-      toast.error('Passwords do not match');
-      return;
+    try {
+      if (formData.password !== formData.confirmPassword) {
+        setError('Passwords do not match');
+        toast.error('Passwords do not match');
+        return;
+      }
+
+      const result = await doctorSignup({
+        name: formData.name,
+        email: formData.email,
+        phone_number: formData.phone_number,
+        specialty: formData.specialty,
+        qualifications: formData.qualifications,
+        experience: formData.experience,
+        password: formData.password,
+        confirm_password: formData.confirmPassword
+      });
+
+      if (result.success) {
+        toast.success(result.message);
+        navigate('/doctor-login');
+      } else {
+        setError(result.message);
+        toast.error(result.message);
+      }
+    } catch (error) {
+      console.error('Signup error:', error);
+      toast.error(error.message || 'An error occurred during registration');
+    } finally {
+      setIsLoading(false);
     }
-
-    // Here you would typically make an API call to register the doctor
-    // For now, we'll just simulate a successful registration
-    toast.success('Registration successful! Please login.');
-    navigate('/doctor-login');
   };
 
   return (
@@ -52,25 +75,13 @@ const DoctorSignup = () => {
             <h2 className="text-center mb-4">Doctor Sign Up</h2>
             <Form onSubmit={handleSubmit} style={{display:"grid",gridTemplateColumns:"1fr 1fr", columnGap:"2rem"}}>
               <Form.Group className="mb-3">
-                <Form.Label>First Name</Form.Label>
+                <Form.Label>Name</Form.Label>
                 <Form.Control
                   type="text"
-                  name="firstName"
-                  value={formData.firstName}
+                  name="name"
+                  value={formData.name}
                   onChange={handleChange}
-                  placeholder="Enter first name"
-                  required
-                />
-              </Form.Group>
-
-              <Form.Group className="mb-3">
-                <Form.Label>Last Name</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  placeholder="Enter last name"
+                  placeholder="Enter name"
                   required
                 />
               </Form.Group>
@@ -91,8 +102,8 @@ const DoctorSignup = () => {
                 <Form.Label>Phone Number</Form.Label>
                 <Form.Control
                   type="tel"
-                  name="phone"
-                  value={formData.phone}
+                  name="phone_number"
+                  value={formData.phone_number}
                   onChange={handleChange}
                   placeholder="Enter phone number"
                   required
@@ -100,25 +111,37 @@ const DoctorSignup = () => {
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label>Specialization</Form.Label>
+                <Form.Label>Specialty</Form.Label>
                 <Form.Control
                   type="text"
-                  name="specialization"
-                  value={formData.specialization}
+                  name="specialty"
+                  value={formData.specialty}
                   onChange={handleChange}
-                  placeholder="Enter your specialization"
+                  placeholder="Enter your specialty"
                   required
                 />
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label>License Number</Form.Label>
+                <Form.Label>Qualifications</Form.Label>
                 <Form.Control
                   type="text"
-                  name="licenseNumber"
-                  value={formData.licenseNumber}
+                  name="qualifications"
+                  value={formData.qualifications}
                   onChange={handleChange}
-                  placeholder="Enter your medical license number"
+                  placeholder="Enter your medical qualifications"
+                  required
+                />
+              </Form.Group>
+
+              <Form.Group className="mb-3">
+                <Form.Label>Experience (years)</Form.Label>
+                <Form.Control
+                  type="number"
+                  name="experience"
+                  value={formData.experience}
+                  onChange={handleChange}
+                  placeholder="Enter years of experience"
                   required
                 />
               </Form.Group>
@@ -147,13 +170,18 @@ const DoctorSignup = () => {
                 />
               </Form.Group>
 
-              
+              <Button 
+                variant="primary" 
+                type="submit" 
+                className="w-25" 
+                style={{marginInline:"auto"}}
+                disabled={isLoading}
+              >
+                {isLoading ? 'Signing Up...' : 'Sign Up'}
+              </Button>
             </Form>
             {error && <div className="text-danger mb-3">{error}</div>}
-
-              <Button variant="primary" type="submit" className="w-25 " style={{marginInline:"auto"}}>
-                Sign Up
-              </Button>
+              
             <p className="text-center mt-3">
               Already have an account?{' '}
               <Link to="/doctor-login" className="login-link">

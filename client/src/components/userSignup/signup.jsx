@@ -4,20 +4,39 @@ import { Container, Form, Button, Card, Row, Col } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import userform2cc from '../../assets/userform2 cc.png';
 import { FaUser, FaEnvelope, FaPhone, FaLock, FaGoogle, FaFacebookF, FaTwitter } from 'react-icons/fa';
-import { signup } from '../../utils/auth';
+import { signup } from '../../utils/patientAuth.js';
 import './Signup.css';
 
 const PatientSignup = () => {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    name: '',
     email: '',
-    phone: '',
+    phone_number: '',
     password: '',
     confirmPassword: ''
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const navigate = useNavigate();
+
+  const validateForm = () => {
+    const newErrors = {};
+    
+    if (!formData.name.trim()) newErrors.name = 'name is required';
+    if (!formData.email.trim()) newErrors.email = 'Email is required';
+    if (!formData.phone_number.trim()) newErrors.phone_number = 'Phone number is required';
+    if (!formData.password) newErrors.password = 'Password is required';
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = 'Passwords do not match';
+    }
+    if (formData.password.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,29 +44,40 @@ const PatientSignup = () => {
       ...prevState,
       [name]: value
     }));
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: '' }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (formData.password !== formData.confirmPassword) {
-      toast.error('Passwords do not match');
+    if (!validateForm()) {
+      toast.error('Please fix the errors in the form');
       return;
     }
 
-    const result = await signup({
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      email: formData.email,
-      phone: formData.phone,
-      password: formData.password
-    });
+    setIsLoading(true);
+    try {
+      const result = await signup({
+        name:formData.name,
+        email: formData.email,
+        phone_number: formData.phone_number,
+        password: formData.password
+      });
 
-    if (result.success) {
-      toast.success('Registration successful! Please login.');
-      navigate('/patient-login');
-    } else {
-      toast.error(result.message || 'Registration failed');
+      if (result.success) {
+        toast.success('Registration successful! Please login.');
+        navigate('/patient-login');
+      } else {
+        toast.error(result.message || 'Registration failed');
+      }
+    } catch (error) {
+      console.error('Signup error:', error);
+      toast.error('An error occurred during registration. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -62,31 +92,20 @@ const PatientSignup = () => {
                 <Col md={6}>
                   <Form.Group className="mb-3">
                     <Form.Label>
-                      <FaUser className="input-icon" /> First Name
+                      <FaUser className="input-icon" /> Name
                     </Form.Label>
                     <Form.Control
                       type="text"
-                      name="firstName"
-                      value={formData.firstName}
+                      name="name"
+                      value={formData.name}
                       onChange={handleChange}
-                      placeholder="Enter first name"
+                      placeholder="Enter name"
+                      isInvalid={!!errors.name}
                       required
                     />
-                  </Form.Group>
-                </Col>
-                <Col md={6}>
-                  <Form.Group className="mb-3">
-                    <Form.Label>
-                      <FaUser className="input-icon" /> Last Name
-                    </Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={handleChange}
-                      placeholder="Enter last name"
-                      required
-                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.name}
+                    </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
               </Row>
@@ -101,8 +120,12 @@ const PatientSignup = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Enter email"
+                  isInvalid={!!errors.email}
                   required
                 />
+                <Form.Control.Feedback type="invalid">
+                  {errors.email}
+                </Form.Control.Feedback>
               </Form.Group>
 
               <Form.Group className="mb-3">
@@ -111,12 +134,16 @@ const PatientSignup = () => {
                 </Form.Label>
                 <Form.Control
                   type="tel"
-                  name="phone"
-                  value={formData.phone}
+                  name="phone_number"
+                  value={formData.phone_number}
                   onChange={handleChange}
                   placeholder="Enter phone number"
+                  isInvalid={!!errors.phone_number}
                   required
                 />
+                <Form.Control.Feedback type="invalid">
+                  {errors.phone_number}
+                </Form.Control.Feedback>
               </Form.Group>
 
               <Form.Group className="mb-3">
@@ -129,8 +156,12 @@ const PatientSignup = () => {
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="Enter password"
+                  isInvalid={!!errors.password}
                   required
                 />
+                <Form.Control.Feedback type="invalid">
+                  {errors.password}
+                </Form.Control.Feedback>
               </Form.Group>
 
               <Form.Group className="mb-4">
@@ -143,12 +174,21 @@ const PatientSignup = () => {
                   value={formData.confirmPassword}
                   onChange={handleChange}
                   placeholder="Confirm password"
+                  isInvalid={!!errors.confirmPassword}
                   required
                 />
+                <Form.Control.Feedback type="invalid">
+                  {errors.confirmPassword}
+                </Form.Control.Feedback>
               </Form.Group>
 
-              <Button variant="primary" type="submit" className="w-100 mb-3">
-                Register
+              <Button 
+                variant="primary" 
+                type="submit" 
+                className="w-100 mb-3"
+                disabled={isLoading}
+              >
+                {isLoading ? 'Registering...' : 'Register'}
               </Button>
 
               <div className="divider">

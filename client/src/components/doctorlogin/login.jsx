@@ -4,6 +4,7 @@ import { Container, Form, Button, Card } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import userform2cc from '../../assets/userform2 cc.png';
 import { FaUserMd, FaEnvelope, FaLock, FaGoogle, FaFacebookF, FaTwitter } from 'react-icons/fa';
+import { login as doctorLogin } from '../../utils/doctorAuth';
 import './Login.css';
 
 const DoctorLogin = () => {
@@ -11,6 +12,7 @@ const DoctorLogin = () => {
     email: '',
     password: ''
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -22,32 +24,23 @@ const DoctorLogin = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     
-    // Hardcoded credentials
-    const validCredentials = {
-      email: 'doctor@example.com',
-      password: 'doctor123'
-    };
-
-    if (formData.email === validCredentials.email && formData.password === validCredentials.password) {
-      // Store user data in localStorage
-      const userData = {
-        id: '1',
-        email: formData.email,
-        name: 'Dr. Smith',
-        phone: '1234567890',
-        role: 'doctor'
-      };
-      localStorage.setItem('user', JSON.stringify(userData));
-      localStorage.setItem('userRole', 'doctor');
-      localStorage.setItem('username', userData.name);
-
-      toast.success('Login successful!');
-      navigate('/doctor-dashboard');
-    } else {
-      toast.error('Invalid credentials');
+    try {
+      const result = await doctorLogin(formData.email, formData.password);
+      
+      if (result.success) {
+        toast.success('Login successful!');
+        navigate('/doctor-dashboard');
+      } else {
+        throw new Error(result.message);
+      }
+    } catch (error) {
+      toast.error(error.message || 'An error occurred during login');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -93,9 +86,18 @@ const DoctorLogin = () => {
                 />
               </Form.Group>
 
-              <Button variant="primary" type="submit" className="w-100 mb-3">
-                Login
+              <Button 
+                variant="primary" 
+                type="submit" 
+                className="w-100 mb-3"
+                disabled={isLoading}
+              >
+                {isLoading ? 'Logging in...' : 'Login'}
               </Button>
+
+              <div className="text-center mt-3">
+                <Link to="/forgot-password">Forgot Password?</Link>
+              </div>
 
               <div className="divider">
                 <span>or login with</span>

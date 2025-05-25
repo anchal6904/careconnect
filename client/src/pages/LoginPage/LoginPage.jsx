@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Container, Form, Button, Card } from 'react-bootstrap';
-import { login } from '../../utils/auth';
+import { login } from '../../utils/patientAuth.js'; // Backend call function
 import { toast } from 'react-toastify';
 import './LoginPage.css';
 
@@ -11,26 +11,30 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setError('');
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setError('');
 
-    const result = login(credentials.username, credentials.password);
-    
-    if (result.success) {
-      toast.success('Login successful!');
-      const from = location.state?.from?.pathname || `/${result.role}-dashboard`;
-      navigate(from, { replace: true });
-    } else {
-      setError(result.message);
-      toast.error(result.message);
-    }
-  };
+  const result = await login(credentials.username, credentials.password);
+
+  if (result.success) {
+    toast.success('Login successful!');
+    // Store session or token as needed:
+    localStorage.setItem('supabaseSession', JSON.stringify(result.session));
+
+    // You can redirect based on role or just to dashboard
+    navigate('/dashboard', { replace: true });
+  } else {
+    setError(result.message);
+    toast.error(result.message);
+  }
+};
+
 
   const handleChange = (e) => {
     setCredentials({
       ...credentials,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -76,4 +80,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage; 
+export default LoginPage;

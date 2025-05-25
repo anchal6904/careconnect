@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FaUser, FaSignOutAlt, FaBars, FaBell, FaCog, FaCaretDown } from 'react-icons/fa';
-import { logout } from '../../utils/auth';
+import { logout } from '../../utils/patientAuth.js';
 import { toast } from 'react-toastify';
 import './DashboardNavbar.css';
 

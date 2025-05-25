@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import { ToastContainer } from 'react-toastify'
-import { isAuthenticated, getCurrentUser } from './utils/auth'
+import { isAuthenticated, getCurrentUser } from './utils/patientAuth.js'
 import HomePage from './pages/HomePage/HomePage'
 import AboutPage from './pages/AboutPage/AboutPage' 
 import DepartmentsPage from './pages/DepartmentsPage/DepartmentsPage'
@@ -69,14 +69,15 @@ const FooterHandler = () => {
 // Protected Route component
 const ProtectedRouteComponent = ({ children, allowedRoles }) => {
   const isAuth = isAuthenticated();
-  const user = getCurrentUser();
+  const userRole = localStorage.getItem('userRole');
 
   if (!isAuth) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/login" replace />;
   }
 
-  if (allowedRoles && !allowedRoles.includes(user.role)) {
-    return <Navigate to="/" replace />;
+  if (allowedRoles && !allowedRoles.includes(userRole)) {
+    // If user is not authorized for this route, redirect to their appropriate dashboard
+    return <Navigate to={`/${userRole}-dashboard`} replace />;
   }
 
   return children;

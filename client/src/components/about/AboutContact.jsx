@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa';
-import { supabase } from '../../../../server/supabaseClient';
+// import { supabase } from '../../../../server/supabaseClient';
 import './AboutContact.css';
 
 const AboutContact = () => {

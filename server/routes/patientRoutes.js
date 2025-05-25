@@ -6,11 +6,11 @@ import { supabaseAdmin,supabase } from '../supabaseClient.js';
 
 router.post('/signup', async (req, res) => {
   try {
-    const { name, email, password, confirm_password } = req.body;
+    const { name, email, password, confirm_password, phone_number } = req.body;
 
     // Validation
-    if (!name || !email || !password || !confirm_password) {
-      return res.status(400).json({ success: false, message: "All fields are required" });
+    if (!name || !email || !password || !confirm_password || !phone_number) { // Added phone_number to basic check
+      return res.status(400).json({ success: false, message: "All fields (including phone number) are required" });
     }
 
     if (password !== confirm_password) {
@@ -25,6 +25,7 @@ router.post('/signup', async (req, res) => {
       user_metadata: {
         name,
         user_type: "patient",
+        phone_number, // Store phone_number in auth metadata
       },
     });
 
@@ -52,7 +53,7 @@ router.post('/signup', async (req, res) => {
         id: authData.user.id,
         name,
         email: email.toLowerCase(),
-        phone_number: null,
+        phone_number: phone_number, // Use provided phone_number
         gender: null,
         date_of_birth: null,
         blood_group: null,
@@ -97,43 +98,63 @@ router.post('/signup', async (req, res) => {
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
-  // Sign in using Supabase Auth
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
+  try {
+    // Sign in using Supabase Auth
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
 
-  if (error) {
-    return res.status(401).json({ message: error.message || 'Invalid credentials' });
-  }
-
-  const user = data.user;
-
-  // ✅ Check user_type from Supabase Auth metadata
-  if (user.user_metadata?.user_type !== 'patient') {
-    return res.status(403).json({ message: 'Unauthorized user type' });
-  }
-
-  // Fetch profile data from patients table
-  const { data: patientProfile, error: profileError } = await supabase
-    .from('patients')
-    .select('id, name, email')
-    .eq('id', user.id)
-    .single();
-
-  if (profileError) {
-    return res.status(500).json({ message: 'Error fetching patient profile' });
-  }
-
-  // Respond with session and profile
-  res.status(200).json({
-    message: 'Login successful',
-    session: data.session, // includes access_token, refresh_token
-    patient: {
-      ...patientProfile,
-      user_type: user.user_metadata.user_type // add user_type in response if needed
+    if (error) {
+      return res.status(401).json({ 
+        success: false, 
+        message: error.message || 'Invalid credentials' 
+      });
     }
-  });
+
+    const user = data.user;
+
+    // ✅ Check user_type from Supabase Auth metadata
+    if (user.user_metadata?.user_type !== 'patient') {
+      return res.status(403).json({ 
+        success: false, 
+        message: 'Unauthorized user type' 
+      });
+    }
+
+    // Fetch profile data from patients table
+    const { data: patientProfile, error: profileError } = await supabase
+      .from('patients')
+      .select('id, name, email')
+      .eq('id', user.id)
+      .single();
+
+    if (profileError) {
+      return res.status(500).json({ 
+        success: false, 
+        message: 'Error fetching patient profile' 
+      });
+    }
+
+    // Respond with session and profile in the expected structure
+    res.status(200).json({
+      success: true,
+      message: 'Login successful',
+      data: {
+        session: data.session, // includes access_token, refresh_token
+        patient: {
+          ...patientProfile,
+          user_type: user.user_metadata.user_type
+        }
+      }
+    });
+  } catch (error) {
+    console.error('Login error:', error);
+    return res.status(500).json({ 
+      success: false, 
+      message: error.message || 'Server error' 
+    });
+  }
 });
 
 

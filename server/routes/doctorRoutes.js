@@ -192,6 +192,7 @@ router.post('/loginDoctor', async (req, res) => {
       user: {
         id: user.id,
         email: user.email,
+        name: user.user_metadata.name,
         user_type: user.user_metadata.user_type,
       },
       token: session.access_token,
@@ -237,6 +238,15 @@ router.put('/updateDoctorProfile/:id', async (req, res) => {
       bio,
     } = req.body;
 
+    console.log('Received update request:', {
+      id,
+      consultation_fee,
+      available_days,
+      available_hours,
+      location_link,
+      bio
+    });
+
     // Only include fields that are provided in the update
     if (consultation_fee !== undefined) updateData.consultation_fee = consultation_fee;
     if (available_days !== undefined) updateData.available_days = available_days;
@@ -279,20 +289,31 @@ router.put('/updateDoctorProfile/:id', async (req, res) => {
       consultation_fee !== undefined &&
       available_days !== undefined &&
       available_hours !== undefined &&
-      avatar_url !== undefined &&
       location_link !== undefined &&
       bio !== undefined;
+
+    console.log('Profile completeness check:', {
+      consultation_fee: consultation_fee !== undefined,
+      available_days: available_days !== undefined,
+      available_hours: available_hours !== undefined,
+      location_link: location_link !== undefined,
+      bio: bio !== undefined,
+      isCompleteProfile
+    });
 
     if (isCompleteProfile) {
       updateData.onboarding_complete = true;
       updateData.is_visible = true;
     }
 
+    console.log('Final update data:', updateData);
+
     // Update the doctor profile
-    const { error } = await supabaseAdmin
+    const { data, error } = await supabaseAdmin
       .from("doctors")
       .update(updateData)
-      .eq("id", id);
+      .eq("id", id)
+      .select();  // Add this to get the updated data
 
     if (error) {
       console.error("Error updating doctor profile:", error);
@@ -302,10 +323,12 @@ router.put('/updateDoctorProfile/:id', async (req, res) => {
       });
     }
 
+    console.log('Updated doctor data:', data);
+
     return res.status(200).json({
       success: true,
       message: "Doctor profile updated successfully",
-      data: updateData
+      data: data[0]  // Return the updated doctor data
     });
 
   } catch (error) {
@@ -321,18 +344,127 @@ router.put('/updateDoctorProfile/:id', async (req, res) => {
 // Get all doctors
 router.get('/fetchDoctors', async (req, res) => {
   try {
+    // Fetch only required doctor fields
     const { data, error } = await supabase
       .from('doctors')
-      .select('*');
+      .select(`
+        id,
+        name,
+        specialty,
+        experience,
+        rating,
+        consultation_fee,
+        is_visible
+      `)
+      .eq('is_visible', true)
+      .order('created_at', { ascending: false });
 
     if (error) {
-      return res.status(500).json({ success: false, message: 'Error fetching doctors', error });
+      console.error('Database error:', error);
+      return res.status(500).json({ 
+        success: false, 
+        message: 'Error fetching doctors', 
+        error: error.message 
+      });
     }
 
-    return res.status(200).json({ success: true, data });
+    if (!data || data.length === 0) {
+      return res.status(200).json({
+        success: true,
+        message: 'No doctors found',
+        data: []
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: 'Doctors fetched successfully',
+      data: data
+    });
   } catch (error) {
-    console.error('Error:', error);
-    return res.status(500).json({ success: false, message: 'Server error' });
+    console.error('Server error:', error);
+    return res.status(500).json({ 
+      success: false, 
+      message: 'Server error', 
+      error: error.message 
+    });
+  }
+});
+
+// Get doctor details by ID
+router.get('/doctor/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Fetch doctor details from doctors table
+    const { data: doctorData, error: doctorError } = await supabase
+      .from('doctors')
+      .select(`
+        id,
+        name,
+        specialty,
+        experience,
+        qualification,
+        bio,
+        consultation_fee,
+        available_days,
+        available_hours,
+        avatar_url,
+        location_link,
+        rating,
+        is_visible,
+        created_at,
+        updated_at
+      `)
+      .eq('id', id)
+      .single();
+
+    if (doctorError) {
+      console.error('Error fetching doctor details:', doctorError);
+      return res.status(500).json({
+        success: false,
+        message: 'Error fetching doctor details',
+        error: doctorError.message
+      });
+    }
+
+    if (!doctorData) {
+      return res.status(404).json({
+        success: false,
+        message: 'Doctor not found'
+      });
+    }
+
+    // Get user metadata from auth
+    const { data: userData, error: userError } = await supabaseAdmin.auth.admin.getUserById(id);
+
+    if (userError) {
+      console.error('Error fetching user metadata:', userError);
+      return res.status(500).json({
+        success: false,
+        message: 'Error fetching user metadata',
+        error: userError.message
+      });
+    }
+
+    // Combine doctor data with user metadata
+    const fullDoctorData = {
+      ...doctorData,
+      email: userData.user.email,
+      phone_number: userData.user.user_metadata.phone_number
+    };
+
+    return res.status(200).json({
+      success: true,
+      data: fullDoctorData
+    });
+  } catch (error) {
+    console.error('Server error:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Server error',
+      error: error.message
+    });
   }
 });
 

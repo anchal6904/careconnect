@@ -10,8 +10,8 @@ import appointmentRouter from './routes/appointmentRouter.js';
 const app = express();
 const port = 5000;
 
-// Middleware
-app.use(cors());
+
+app.use(cors()); 
 app.use(express.json());
 
 // Debug middleware to log all requests
@@ -23,7 +23,8 @@ app.use((req, res, next) => {
 const fetchDoctors = async () => {
   const { data, error } = await supabaseAdmin
     .from('doctors') 
-    .select('*');
+    .select('*') 
+    .eq('name', 'Nita'); // Example condition to fetch doctors
 
   if (error) {
     console.error("Error fetching doctors:", error); 
@@ -44,7 +45,7 @@ app.get('/',(req,res)=>{
     res.status(200).json({
         message:"Server is running",
         data:"hello"
-    });
+    }); 
 });
 
 // 404 handler - Keep this as the last route

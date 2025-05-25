@@ -5,7 +5,7 @@ import 'react-calendar/dist/Calendar.css';
 import { FaClock, FaPlus, FaTrash, FaCalendarAlt } from 'react-icons/fa';
 import './DoctorSchedule.css';
 
-const DoctorSchedule = ({ doctorId, onScheduleUpdate }) => {
+const DoctorSchedule = ({ doctorId, onScheduleUpdate, doctorData }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [workingHours, setWorkingHours] = useState({});
   const [showTimeModal, setShowTimeModal] = useState(false);
@@ -23,24 +23,59 @@ const DoctorSchedule = ({ doctorId, onScheduleUpdate }) => {
     { label: 'Night Shift (7:00 PM - 10:00 PM)', value: '19:00-22:00' }
   ];
 
-  // Initialize holidays for next 7 days
+  // Initialize schedule from doctor's data
   useEffect(() => {
-    const today = new Date();
-    const initialHolidays = {};
-    
-    for (let i = 0; i < 7; i++) {
-      const date = new Date(today);
-      date.setDate(today.getDate() + i);
-      const dateKey = date.toISOString().split('T')[0];
-      initialHolidays[dateKey] = {
-        date: dateKey,
-        isHoliday: true,
-        timeRanges: []
-      };
+    if (doctorData?.available_days && doctorData?.available_hours) {
+      const availableDays = doctorData.available_days.split(',');
+      const availableHours = doctorData.available_hours.split(',');
+      
+      const today = new Date();
+      const initialHolidays = {};
+      
+      for (let i = 0; i < 7; i++) {
+        const date = new Date(today);
+        date.setDate(today.getDate() + i);
+        const dateKey = date.toISOString().split('T')[0];
+        const dayOfWeek = date.toLocaleDateString('en-US', { weekday: 'long' });
+        
+        if (availableDays.includes(dayOfWeek)) {
+          initialHolidays[dateKey] = {
+            date: dateKey,
+            isHoliday: false,
+            timeRanges: availableHours.map(hours => {
+              const [start, end] = hours.split('-');
+              return { startTime: start, endTime: end };
+            })
+          };
+        } else {
+          initialHolidays[dateKey] = {
+            date: dateKey,
+            isHoliday: true,
+            timeRanges: []
+          };
+        }
+      }
+      
+      setWorkingHours(initialHolidays);
+    } else {
+      // Initialize empty schedule if no data exists
+      const today = new Date();
+      const initialHolidays = {};
+      
+      for (let i = 0; i < 7; i++) {
+        const date = new Date(today);
+        date.setDate(today.getDate() + i);
+        const dateKey = date.toISOString().split('T')[0];
+        initialHolidays[dateKey] = {
+          date: dateKey,
+          isHoliday: true,
+          timeRanges: []
+        };
+      }
+      
+      setWorkingHours(initialHolidays);
     }
-    
-    setWorkingHours(initialHolidays);
-  }, []);
+  }, [doctorData]);
 
   const handleDateClick = (date) => {
     setSelectedDate(date);
@@ -93,7 +128,7 @@ const DoctorSchedule = ({ doctorId, onScheduleUpdate }) => {
         }
       };
       
-      localStorage.setItem(`doctorSchedule_${doctorId}`, JSON.stringify(newHours));
+      // Call the update function with the new schedule
       onScheduleUpdate(newHours);
       
       return newHours;

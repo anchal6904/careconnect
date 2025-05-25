@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Form, Button, Card, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { getUsername } from '../../utils/auth';
+import { getUsername } from '../../utils/patientAuth.js';
 import './MakeAppointment.css';
 
 // Dummy data for doctors and departments

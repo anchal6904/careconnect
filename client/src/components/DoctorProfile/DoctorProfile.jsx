@@ -8,18 +8,18 @@ const DoctorProfile = ({ doctorData, onUpdateProfile }) => {
   const [formData, setFormData] = useState({
     name: doctorData?.name || '',
     email: doctorData?.email || '',
-    phone: doctorData?.phone || '',
-    specialization: doctorData?.specialization || '',
+    phone_number: doctorData?.phone_number || '',
+    specialty: doctorData?.specialty || '',
     experience: doctorData?.experience || '',
-    education: doctorData?.education || '',
-    certifications: doctorData?.certifications || '',
+    qualification: doctorData?.qualification || '',
     bio: doctorData?.bio || '',
-    address: doctorData?.address || '',
-    emergencyContact: doctorData?.emergencyContact || {
-      name: '',
-      relationship: '',
-      phone: ''
-    }
+    location_link: doctorData?.location_link || '',
+    consultation_fee: doctorData?.consultation_fee || '',
+    // emergencyContact: doctorData?.emergencyContact || {
+    //   name: '',
+    //   relationship: '',
+    //   phone: ''
+    // }
   });
 
   const handleInputChange = (e) => {
@@ -43,7 +43,10 @@ const DoctorProfile = ({ doctorData, onUpdateProfile }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onUpdateProfile(formData);
+    onUpdateProfile({
+      ...formData,
+      location_link: formData.location_link
+    });
     setIsEditing(false);
   };
 
@@ -57,12 +60,14 @@ const DoctorProfile = ({ doctorData, onUpdateProfile }) => {
         <Card.Body>
           <div className="profile-header">
             <h3 className="profile-title">Doctor Profile</h3>
-            <Button
-              variant={isEditing ? "success" : "outline-primary"}
-              onClick={() => setIsEditing(!isEditing)}
-            >
-              {isEditing ? "Save Changes" : "Edit Profile"}
-            </Button>
+            {!isEditing && (
+              <Button
+                variant="outline-primary"
+                onClick={() => setIsEditing(true)}
+              >
+                Edit Profile
+              </Button>
+            )}
           </div>
 
           <Form onSubmit={handleSubmit}>
@@ -96,11 +101,11 @@ const DoctorProfile = ({ doctorData, onUpdateProfile }) => {
             <Row>
               <Col md={6}>
                 <Form.Group className="mb-3">
-                  <Form.Label>Phone</Form.Label>
+                  <Form.Label>Phone Number</Form.Label>
                   <Form.Control
                     type="tel"
                     name="phone"
-                    value={formData.phone}
+                    value={formData.phone_number}
                     onChange={handleInputChange}
                     disabled={!isEditing}
                   />
@@ -108,11 +113,11 @@ const DoctorProfile = ({ doctorData, onUpdateProfile }) => {
               </Col>
               <Col md={6}>
                 <Form.Group className="mb-3">
-                  <Form.Label>Specialization</Form.Label>
+                  <Form.Label>Specialty</Form.Label>
                   <Form.Control
                     type="text"
-                    name="specialization"
-                    value={formData.specialization}
+                    name="specialty"
+                    value={formData.specialty}
                     onChange={handleInputChange}
                     disabled={!isEditing}
                   />
@@ -135,29 +140,34 @@ const DoctorProfile = ({ doctorData, onUpdateProfile }) => {
               </Col>
               <Col md={6}>
                 <Form.Group className="mb-3">
-                  <Form.Label>Education</Form.Label>
+                  <Form.Label>Consultation Fee</Form.Label>
+                  <Form.Control
+                    type="number"
+                    name="consultation_fee"
+                    value={formData.consultation_fee}
+                    onChange={handleInputChange}
+                    disabled={!isEditing}
+                    min="0"
+                    step="100"
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+
+            <Row>
+              <Col md={12}>
+                <Form.Group className="mb-3">
+                  <Form.Label>Qualifications</Form.Label>
                   <Form.Control
                     type="text"
-                    name="education"
-                    value={formData.education}
+                    name="qualification"
+                    value={formData.qualification}
                     onChange={handleInputChange}
                     disabled={!isEditing}
                   />
                 </Form.Group>
               </Col>
             </Row>
-
-            <Form.Group className="mb-3">
-              <Form.Label>Certifications</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
-                name="certifications"
-                value={formData.certifications}
-                onChange={handleInputChange}
-                disabled={!isEditing}
-              />
-            </Form.Group>
 
             <Form.Group className="mb-3">
               <Form.Label>Bio</Form.Label>
@@ -172,18 +182,18 @@ const DoctorProfile = ({ doctorData, onUpdateProfile }) => {
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label>Address</Form.Label>
+              <Form.Label>Location</Form.Label>
               <Form.Control
                 as="textarea"
                 rows={2}
-                name="address"
-                value={formData.address}
+                name="location_link"
+                value={formData.location_link}
                 onChange={handleInputChange}
                 disabled={!isEditing}
               />
             </Form.Group>
 
-            <div className="emergency-contact-section">
+            {/* <div className="emergency-contact-section">
               <h5>Emergency Contact</h5>
               <Row>
                 <Col md={4}>
@@ -223,7 +233,7 @@ const DoctorProfile = ({ doctorData, onUpdateProfile }) => {
                   </Form.Group>
                 </Col>
               </Row>
-            </div>
+            </div> */}
 
             {isEditing && (
               <div className="profile-actions">
@@ -232,7 +242,21 @@ const DoctorProfile = ({ doctorData, onUpdateProfile }) => {
                 </Button>
                 <Button
                   variant="outline-secondary"
-                  onClick={() => setIsEditing(false)}
+                  onClick={() => {
+                    setIsEditing(false);
+                    // Reset form data to original values
+                    setFormData({
+                      name: doctorData?.name || '',
+                      email: doctorData?.email || '',
+                      phone_number: doctorData?.phone_number || '',
+                      specialty: doctorData?.specialty || '',
+                      experience: doctorData?.experience || '',
+                      qualification: doctorData?.qualification || '',
+                      bio: doctorData?.bio || '',
+                      location_link: doctorData?.location_link || '',
+                      consultation_fee: doctorData?.consultation_fee || '',
+                    });
+                  }}
                   className="ms-2"
                 >
                   Cancel
